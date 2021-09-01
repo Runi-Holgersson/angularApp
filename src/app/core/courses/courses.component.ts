@@ -7,16 +7,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CoursesComponent implements OnInit {
 
-  //public courseItem: string[];
+  public courseItem: string[]=[];
 
   constructor() {
 
   }
 
   ngOnInit(): void {
-   /* this.courseItem = [
+    this.courseItem = [
       `course 1`, `course 2`, `course 3`
-    ]*/
+    ]
   }
 
 }
