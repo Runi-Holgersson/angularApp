@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-search-panel',
@@ -6,14 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-panel.component.sass']
 })
 export class SearchPanelComponent implements OnInit {
-public titleFind: string = `Find Course`;
+  public titleFind: string = `Find Course`;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-inputHandler($event: any){
-   this.titleFind = $event.target.value;
-   console.log(this.titleFind);
-}
+
+  inputHandler($event: any) {
+    this.titleFind = $event.target.value;
+    console.log(this.titleFind);
+  }
 }
