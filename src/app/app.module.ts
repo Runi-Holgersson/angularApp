@@ -12,6 +12,7 @@ import {CourseItemComponent} from "./content/main/course-item/course-item.compon
 import {LoaderComponent} from "./content/main/loader/loader.component";
 import {SearchPanelComponent} from "./content/main/search-panel/search-panel.component";
 import {FooterComponent} from './footer/footer.component';
+import { ButtonComponent } from './content/main/course-item/button/button.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {FooterComponent} from './footer/footer.component';
     MainComponent,
     CourseItemComponent,
     LoaderComponent,
-    SearchPanelComponent
+    SearchPanelComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

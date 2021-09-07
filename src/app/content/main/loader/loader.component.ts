@@ -11,5 +11,7 @@ export class LoaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+loadContent(): void{
+    console.log(`content is loading..`);
+}
 }

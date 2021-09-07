@@ -1,1 +1,7 @@
-<p>{{item}}</p>
+<div class="description-wrapper">
+  <p>{{title}}</p>
+  <p>{{description}}</p>
+  <p>{{duration}}</p>
+  <p>{{date}}</p></div>
+<div class="btn-wrapper">
+  <app-button *ngFor = "let btn of btns" [btnTitle]="btn" (onClick)="enableBtn($event)"></app-button></div>
