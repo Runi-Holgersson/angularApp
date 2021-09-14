@@ -22,7 +22,8 @@ export class CourseItemComponent implements OnInit {
   ngOnInit(): void {
     this.buttons = ["Edit", "Delete"];
   }
-enableBtn(event:any):void {
+
+  enableBtn(event: any): void {
     console.log(`Button ${event} is enabled`);
-}
+  }
 }

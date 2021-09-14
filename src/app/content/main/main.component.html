@@ -1,6 +1,9 @@
 <main>
+
+
   <app-search-panel></app-search-panel>
   <app-course-item *ngFor="let item of courseItem" [title]="item.title" [description]="item.description"
                    [date]="item.date" [duration]="item.duration"></app-course-item>
-  <app-loader></app-loader>
+  <app-loader [courseItemsCount]="courseItem.length"></app-loader>
+
 </main>
