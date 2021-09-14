@@ -14,6 +14,8 @@ export class CourseItemComponent implements OnInit {
   public description: string = "";
   @Input()
   public date: string = "";
+  @Input()
+  public topRated: boolean | undefined = false;
   public buttons: string[] = [];
 
   constructor() {
