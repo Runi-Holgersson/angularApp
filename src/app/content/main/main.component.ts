@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CourseContent} from "../../../common/interfaces/interfaces";
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  public courseItem: {title: string, duration: string, date: string, description:string}[]=[];
+  public courseItem: CourseContent[]=[];
 
   constructor() {
 

@@ -7,20 +7,20 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CourseItemComponent implements OnInit {
   @Input()
-  public title: string = ``;
+  public title: string = "";
   @Input()
-  public duration: string = ``;
+  public duration: string = "";
   @Input()
-  public description: string = ``;
+  public description: string = "";
   @Input()
-  public date: string = ``;
-  public btns: string[] = [];
+  public date: string = "";
+  public buttons: string[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.btns = [`Edit`, `Delete`];
+    this.buttons = ["Edit", "Delete"];
   }
 enableBtn(event:any):void {
     console.log(`Button ${event} is enabled`);

@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./search-panel.component.sass']
 })
 export class SearchPanelComponent implements OnInit {
-  public titleFind: string = `Find Course`;
+  public titleFind: string = "Find Course";
 
   constructor() {
   }

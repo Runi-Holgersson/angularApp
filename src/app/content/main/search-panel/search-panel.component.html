@@ -1,4 +1,4 @@
-<input type="text" (input) = "inputHandler($event)" [value]= "titleFind">
+<input type="text" name="test" [(ngModel)]="titleFind"  [value]= "titleFind">
 <button class="search">..Search {{titleFind}}</button>
 <button class="add">Add course</button>
 

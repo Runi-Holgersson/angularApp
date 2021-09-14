@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
+
 
 import {AppComponent} from './app.component';
 import {ContentComponent} from "./content/content.component";
@@ -12,7 +13,7 @@ import {CourseItemComponent} from "./content/main/course-item/course-item.compon
 import {LoaderComponent} from "./content/main/loader/loader.component";
 import {SearchPanelComponent} from "./content/main/search-panel/search-panel.component";
 import {FooterComponent} from './footer/footer.component';
-import { ButtonComponent } from './content/main/course-item/button/button.component';
+import {ButtonComponent} from './content/main/course-item/button/button.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ButtonComponent } from './content/main/course-item/button/button.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

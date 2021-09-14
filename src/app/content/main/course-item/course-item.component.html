@@ -5,5 +5,5 @@
   <p>{{description}}</p>
   </div>
 <div class="btn-wrapper">
-  <app-button *ngFor="let btn of btns" [btnTitle]="btn" (onClick)="enableBtn($event)"></app-button>
+  <app-button *ngFor="let button of buttons" [buttonTitle]="button" (onClick)="enableBtn($event)"></app-button>
 </div>
