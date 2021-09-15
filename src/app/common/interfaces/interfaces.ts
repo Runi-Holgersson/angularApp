@@ -1,7 +1,7 @@
 export interface CourseContent {
   title: string,
   duration: number,
-  date: string,
+  date: any,
   description: string,
   topRated?: boolean
 }
