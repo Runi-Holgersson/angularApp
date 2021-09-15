@@ -14,6 +14,9 @@ import {LoaderComponent} from "./content/main/loader/loader.component";
 import {SearchPanelComponent} from "./content/main/search-panel/search-panel.component";
 import {FooterComponent} from './footer/footer.component';
 import {ButtonComponent} from './content/main/course-item/button/button.component';
+import { ChangeBorderDirective } from './common/directives/change-border.directive';
+
+
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import {ButtonComponent} from './content/main/course-item/button/button.componen
     CourseItemComponent,
     LoaderComponent,
     SearchPanelComponent,
-    ButtonComponent
+    ButtonComponent,
+    ChangeBorderDirective,
   ],
   imports: [
     BrowserModule,
