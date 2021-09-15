@@ -1,12 +1,12 @@
 <div appChangeBorder class="item-container" [ngClass]="{'top-rated': topRated}">
   <div class="description-wrapper">
     <div class="title-row">
-      <div>{{title}}
+      <div>{{title | uppercase}}
         <span *ngIf="topRated" class="star-rating">
           <i class="fa fa-star" aria-hidden="true"></i>
         </span>
       </div>
-      <div class="title-dates"><span>{{duration}}</span><span>{{date}}</span></div>
+      <div class="title-dates"><span>{{duration | duration}}</span><span>{{date}}</span></div>
     </div>
     <p>{{description}}</p>
   </div>

@@ -15,6 +15,7 @@ import {SearchPanelComponent} from "./content/main/search-panel/search-panel.com
 import {FooterComponent} from './footer/footer.component';
 import {ButtonComponent} from './content/main/course-item/button/button.component';
 import { ChangeBorderDirective } from './common/directives/change-border.directive';
+import { DurationPipe } from './common/pipes/duration.pipe';
 
 
 
@@ -32,6 +33,7 @@ import { ChangeBorderDirective } from './common/directives/change-border.directi
     SearchPanelComponent,
     ButtonComponent,
     ChangeBorderDirective,
+    DurationPipe,
   ],
   imports: [
     BrowserModule,
