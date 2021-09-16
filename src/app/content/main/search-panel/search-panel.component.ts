@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit} from '@angular/core';
+import {SearchFilterPipe} from "../../../common/pipes/search-filter.pipe";
 
 @Component({
   selector: 'app-search-panel',
   templateUrl: './search-panel.component.html',
-  styleUrls: ['./search-panel.component.sass']
+  styleUrls: ['./search-panel.component.sass'],
+  providers: [SearchFilterPipe]
 })
 export class SearchPanelComponent implements OnInit {
-  public titleFind: string = "Find Course";
+  public inputValue:string ="";
+  @Output()titleFind = new EventEmitter<string>();
 
   constructor() {
   }
@@ -14,8 +17,7 @@ export class SearchPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  inputHandler($event: any) {
-    this.titleFind = $event.target.value;
-    console.log(this.titleFind);
+  filterHandler(value:string) {
+   this.titleFind.emit(value);
   }
 }
