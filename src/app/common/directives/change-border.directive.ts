@@ -14,7 +14,7 @@ export class ChangeBorderDirective {
     if (this.creationDate > this.currentDate) {
       this.elementRef.nativeElement.style.borderColor = "blue";
     }
-    this.elementRef.nativeElement.textContent = `${this.currentDate} ${this.creationDate}`
+    console.log(`${this.currentDate} ${this.creationDate}`);
   }
 
 }

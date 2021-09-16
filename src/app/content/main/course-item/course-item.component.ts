@@ -16,10 +16,11 @@ export class CourseItemComponent implements OnInit {
   @Input()
   public description: string = "";
   @Input()
-  public date: string | null | number = "";
+  public date: any = "";
   @Input()
   public topRated: boolean | undefined = false;
   public buttons: string[] = [];
+  public today: number = new Date().getTime();
 
   constructor() {
   }

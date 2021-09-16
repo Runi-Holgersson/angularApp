@@ -17,6 +17,7 @@ import {ButtonComponent} from './content/main/course-item/button/button.componen
 import { ChangeBorderDirective } from './common/directives/change-border.directive';
 import { DurationPipe } from './common/pipes/duration.pipe';
 import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
+import { OrderByPipe } from './common/pipes/order-by.pipe';
 
 
 
@@ -36,6 +37,7 @@ import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
     ChangeBorderDirective,
     DurationPipe,
     SearchFilterPipe,
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,

@@ -2,12 +2,13 @@ import {Component, Output, OnInit} from '@angular/core';
 import {CourseContent} from "../../common/interfaces/interfaces";
 import {DatePipe} from "@angular/common";
 import {SearchFilterPipe} from "../../common/pipes/search-filter.pipe";
+import {OrderByPipe} from "../../common/pipes/order-by.pipe";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.sass'],
-  providers: [DatePipe, SearchFilterPipe]
+  providers: [DatePipe, SearchFilterPipe, OrderByPipe]
 })
 export class MainComponent implements OnInit {
 
@@ -53,24 +54,14 @@ export class MainComponent implements OnInit {
     })
     return coursesArray;
   }
-
-  sortData(coursesArray: CourseContent[]): CourseContent[] {
-    coursesArray.sort((a, b) => {
-      const firstDate: number = new Date(a.date).getTime();
-      const secondDate: number = new Date(b.date).getTime();
-      return (firstDate - secondDate);
-    })
-    return coursesArray;
-  }
-
   onSearch(event: string) {
     if (event === ""){
-      this.courseItem = this.sortData(this.formatData(this.courseData, 'dd.MM.yy'));
+      this.courseItem = new OrderByPipe().transform(this.formatData(this.courseData, 'dd.MM.yy'));
     }
     this.courseItem = new SearchFilterPipe().transform(this.courseItem, event);
   }
 
   ngOnInit(): void {
-    this.courseItem = this.sortData(this.formatData(this.courseData, 'dd.MM.yy'));
+    this.courseItem = new OrderByPipe().transform(this.formatData(this.courseData, 'dd.MM.yy'));
   }
 }
