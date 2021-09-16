@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
     },
     {
-      title: `Course 2`, duration: 190, date: `1631711536020`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      title: `Course 2`, duration: 190, date: `07 Oct 2019`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
     },
   ];
@@ -64,14 +64,13 @@ export class MainComponent implements OnInit {
   }
 
   onSearch(event: string) {
+    if (event === ""){
+      this.courseItem = this.sortData(this.formatData(this.courseData, 'dd.MM.yy'));
+    }
     this.courseItem = new SearchFilterPipe().transform(this.courseItem, event);
   }
 
   ngOnInit(): void {
-    this.courseItem = this.sortData(this.formatData(this.courseData, 'dd.MM.yy'));
-  }
-
-  ngAfterViewChecked(): void {
     this.courseItem = this.sortData(this.formatData(this.courseData, 'dd.MM.yy'));
   }
 }
