@@ -20,7 +20,6 @@ export class CourseItemComponent implements OnInit {
   @Input()
   public topRated: boolean | undefined = false;
   public buttons: string[] = [];
-  public today: number = new Date().getTime();
 
   constructor() {
   }

@@ -15,7 +15,7 @@ export class MainComponent implements OnInit {
   @Output() public courseItem: CourseContent[] = [];
   public courseData: CourseContent[] = [
     {
-      title: `Course 1`, duration: 120, date: `07.09.2018`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      title: `Course 1`, duration: 120, date: `07.09.2016`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`
     },
     {
@@ -23,11 +23,11 @@ export class MainComponent implements OnInit {
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
     },
     {
-      title: `Course 3`, duration: 140, date: `07 Jun 2020`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      title: `Course 3`, duration: 140, date: `07 Jun 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`
     },
     {
-      title: `Course 4`, duration: 150, date: `07.09.2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      title: `Course 4`, duration: 150, date: `07.09.2022`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
     },
     {
@@ -39,8 +39,12 @@ export class MainComponent implements OnInit {
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
     },
     {
-      title: `Course 2`, duration: 190, date: `07 Oct 2019`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      title: `Course 2`, duration: 190, date: `09 09 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
+    },
+    {
+      title: `Course 2`, duration: 160, date: `3, 12, 2018`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: false
     },
   ];
 
