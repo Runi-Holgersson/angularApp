@@ -16,6 +16,7 @@ import {FooterComponent} from './footer/footer.component';
 import {ButtonComponent} from './content/main/course-item/button/button.component';
 import { ChangeBorderDirective } from './common/directives/change-border.directive';
 import { DurationPipe } from './common/pipes/duration.pipe';
+import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
 
 
 
@@ -34,6 +35,7 @@ import { DurationPipe } from './common/pipes/duration.pipe';
     ButtonComponent,
     ChangeBorderDirective,
     DurationPipe,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
