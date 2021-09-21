@@ -1,5 +1,6 @@
 import {Directive, ElementRef, Input} from '@angular/core';
 import {DatePipe} from "@angular/common";
+import {MILLISECOND_IN_DAY} from "../constants/constants";
 
 @Directive({
   selector: '[appChangeBorder]',
@@ -17,7 +18,7 @@ export class ChangeBorderDirective {
   ngAfterViewInit() {
     this.creationDateToNumber = (new Date(this.creationDate)).getTime();
     if (this.creationDateToNumber < this.currentDate &&
-      this.creationDateToNumber >= (this.currentDate-1000*60*60*24*14)) {
+      this.creationDateToNumber >= (this.currentDate-MILLISECOND_IN_DAY*14)) {
       this.elementRef.nativeElement.style.borderColor = "green";
     }
     if (this.creationDateToNumber > this.currentDate) {

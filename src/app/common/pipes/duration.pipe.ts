@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {MINUTES_IN_HOUR} from "../constants/constants";
 
 @Pipe({
   name: 'duration'
@@ -6,10 +7,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DurationPipe implements PipeTransform {
 
   transform(dateMinutes: number): string {
-    if(dateMinutes < 60){
+    if(dateMinutes < MINUTES_IN_HOUR){
       return `${dateMinutes}min`
     } else {
-      return `${Math.floor(dateMinutes/60)}h${dateMinutes%60}min`;
+      return `${Math.floor(dateMinutes/MINUTES_IN_HOUR)}h${dateMinutes%MINUTES_IN_HOUR}min`;
     }
   }
 

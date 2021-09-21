@@ -9,10 +9,8 @@ export class SearchPanelComponent implements OnInit {
   public inputValue:string ="";
   @Output()titleFind = new EventEmitter<string>();
 
-  constructor() {
-  }
-
   ngOnInit(): void {
+    this.inputValue = "";
   }
 
   filterHandler(value:string) {
