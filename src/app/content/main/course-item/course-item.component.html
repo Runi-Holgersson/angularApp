@@ -1,9 +1,16 @@
-<div class="description-wrapper">
-  <div class="title-row"><span>{{title}}</span>
-    <div class="title-dates"><span>{{duration}}</span><span>{{date}}</span></div>
+<div appChangeBorder [creationDate]="date" class="item-container" [ngClass]="{'top-rated': topRated}">
+  <div class="description-wrapper">
+    <div class="title-row">
+      <div>{{title | uppercase}}
+        <span *ngIf="topRated" class="star-rating">
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="title-dates"><span>{{duration | duration}}</span><span>{{date}}</span></div>
+    </div>
+    <p>{{description}}</p>
   </div>
-  <p>{{description}}</p>
+  <div class="btn-wrapper">
+    <app-button *ngFor="let button of buttons" [buttonTitle]="button" (onClick)="enableBtn($event)"></app-button>
   </div>
-<div class="btn-wrapper">
-  <app-button *ngFor="let button of buttons" [buttonTitle]="button" (onClick)="enableBtn($event)"></app-button>
 </div>

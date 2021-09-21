@@ -14,6 +14,12 @@ import {LoaderComponent} from "./content/main/loader/loader.component";
 import {SearchPanelComponent} from "./content/main/search-panel/search-panel.component";
 import {FooterComponent} from './footer/footer.component';
 import {ButtonComponent} from './content/main/course-item/button/button.component';
+import { ChangeBorderDirective } from './common/directives/change-border.directive';
+import { DurationPipe } from './common/pipes/duration.pipe';
+import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
+import { OrderByPipe } from './common/pipes/order-by.pipe';
+
+
 
 
 @NgModule({
@@ -27,7 +33,11 @@ import {ButtonComponent} from './content/main/course-item/button/button.componen
     CourseItemComponent,
     LoaderComponent,
     SearchPanelComponent,
-    ButtonComponent
+    ButtonComponent,
+    ChangeBorderDirective,
+    DurationPipe,
+    SearchFilterPipe,
+    OrderByPipe,
   ],
   imports: [
     BrowserModule,

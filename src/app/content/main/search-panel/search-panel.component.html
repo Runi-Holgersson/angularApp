@@ -1,4 +1,4 @@
-<input type="text" name="test" [(ngModel)]="titleFind"  [value]= "titleFind">
-<button class="search">..Search {{titleFind}}</button>
+<input type="text" name="test" [(ngModel)]="inputValue" placeholder="search course">
+<button class="search" (click)="filterHandler(inputValue)">..Search {{inputValue}}</button>
 <button class="add">Add course</button>
 
