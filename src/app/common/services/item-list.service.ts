@@ -25,12 +25,13 @@ export class ItemListService {
     return this.dataList[id];
   }
 
+// returns boolean for ngif
   removeItem(id: number): boolean {
     this.dataList.splice(id, 1);
     return false;
   }
 
-  updateCourse(id: number, item:CourseContent): void {
+  updateCourse(id: number, item: CourseContent): void {
     this.dataList[id].title = item.title;
     this.dataList[id].date = item.date;
     this.dataList[id].description = item.description;
