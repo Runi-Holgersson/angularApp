@@ -9,13 +9,13 @@ import {ItemListService} from "../../common/services/item-list.service";
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.sass'],
-  providers: [DatePipe, SearchFilterPipe, OrderByPipe, ItemListService]
+  providers: [DatePipe, SearchFilterPipe, OrderByPipe]
 })
 export class MainComponent implements OnInit, DoCheck{
   @Output() public courseItem: CourseContent[] = [];
   public courseData: CourseContent[] = [];
 
-  constructor(private itemListService: ItemListService, private datePipe: DatePipe) {
+  constructor(public itemListService: ItemListService, private datePipe: DatePipe) {
     this.courseData = itemListService.getDataList();
     this.courseData.forEach(item => {
       item.id = Math.floor(Math.random()*1000);

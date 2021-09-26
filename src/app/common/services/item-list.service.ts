@@ -22,15 +22,12 @@ export class ItemListService {
     this.dataList.push(this.courseItem);
   }
 
-  getItemById(id: number): CourseContent | boolean {
+  getItemById(id: number): void {
     this.dataList.forEach((item) => {
       if (item.id === id) {
-        return item;
-      } else {
-        return false
+        this.courseItem = item;
       }
     });
-    return false;
   }
 
   getIndexById(id: number): void {
@@ -50,10 +47,10 @@ export class ItemListService {
     }
   }
 
-  updateCourse(id: number, item: CourseContent): void {
-    this.dataList[id].title = item.title;
-    this.dataList[id].date = item.date;
-    this.dataList[id].description = item.description;
-    this.dataList[id].duration = item.duration;
+  updateCourse(index: number, item: CourseContent): void {
+    this.dataList[index].title = item.title;
+    this.dataList[index].date = item.date;
+    this.dataList[index].description = item.description;
+    this.dataList[index].duration = item.duration;
   }
 }

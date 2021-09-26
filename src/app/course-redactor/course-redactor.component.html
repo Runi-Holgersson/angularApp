@@ -1,4 +1,14 @@
 <div class="redactor-container">
-  <p>course-redactor works!</p>
+  <div>Course title</div>
+  <input type="text" [(ngModel)]="title" placeholder="{{changingCourse.title}}">
+  <div>Course duration(in minutes)</div>
+  <input type="text" [(ngModel)]="duration" placeholder="{{changingCourse.duration}}">
+  <div>Date of creation</div>
+  <input type="text" [(ngModel)]="date" placeholder="{{changingCourse.date}}">
+  <div>Description</div>
+  <input type="text" [(ngModel)]="description" placeholder="{{changingCourse.description}}">
+  <div>Is top-rated</div>
+  <input type="radio" [checked]="topRated">
+  <button (click)="clicked()">Update courses list</button>
 </div>
 

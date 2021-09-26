@@ -34,6 +34,8 @@ export class CourseItemComponent implements OnInit {
 
   enableBtn(event: string): void {
     if (event === "Edit"){
+      this.itemListService.getItemById(this.id);
+      this.itemListService.getIndexById(this.id);
       this.courseRedactorService.isRedactorOn = true;
     }
     if (event === "Delete") {

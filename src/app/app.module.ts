@@ -26,6 +26,7 @@ import {LoginPageService} from "./login-page/login-page.service";
 import {AuthorizationService} from "./common/services/authorization.service";
 import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
 import {CourseRedactorService} from "./course-redactor/course-redactor.service";
+import {ItemListService} from "./common/services/item-list.service";
 
 
 
@@ -57,7 +58,7 @@ import {CourseRedactorService} from "./course-redactor/course-redactor.service";
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LoginPageService, AuthorizationService, CourseRedactorService],
+  providers: [LoginPageService, AuthorizationService, CourseRedactorService, ItemListService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
