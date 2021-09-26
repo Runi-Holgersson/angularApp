@@ -4,22 +4,25 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class AuthorizationService {
+  public email: string = "";
+  public password: string = "";
 
-  logIn(login: string, token: string): void {
-    localStorage.setItem("login", login);
-    localStorage.setItem("password", token);
+  logIn(): void {
+    localStorage.setItem("login", this.email);
+    localStorage.setItem("password", this.password);
   }
 
   logOut(): void {
-    localStorage.setItem("login", "");
-    localStorage.setItem("password", "");
+    this.email = "";
+    this.password = ""
+    this.logIn();
   }
 
-  IsAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     return !!localStorage.getItem("login");
   }
 
-  getUserInfo():string | null{
+  getUserInfo(): string | null {
     return localStorage.getItem("login");
   }
 }

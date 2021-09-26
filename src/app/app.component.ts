@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoginPageService} from "./login-page/login-page.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
+  constructor(public loginPageService:LoginPageService) {
+  }
 
 }
+

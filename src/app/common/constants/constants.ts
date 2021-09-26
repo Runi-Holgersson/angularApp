@@ -23,18 +23,18 @@ export const MOCKUP_COURSE_LIST:CourseContent[]=[{
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: false
   },
   {
-    title: `Course 2`, duration: 180, date: `07 Aug 2019`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    title: `Course 7`, duration: 180, date: `07 Aug 2019`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
   },
   {
-    title: `Course 2`, duration: 190, date: `09 09 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    title: `Course 5`, duration: 190, date: `09 09 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true
   },
   {
-    title: `Course 2`, duration: 160, date: `3, 12, 2018`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    title: `Course 6`, duration: 160, date: `3, 12, 2018`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: false
   }];
 export const MOCKUP_COURSE_ITEM: CourseContent = {
-  title: `New course`, duration: 140, date: `07 Jun 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  title: `NEW course`, duration: 140, date: `07 Jun 2021`, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Ab deserunt, dignissimos dolores eaque eius eligendi.`
 };
