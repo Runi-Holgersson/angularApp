@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DatePipe, UpperCasePipe} from "@angular/common";
 import {DurationPipe} from "../../../common/pipes/duration.pipe";
+import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
+import {ItemListService} from "../../../common/services/item-list.service";
 
 @Component({
   selector: 'app-course-item',
@@ -19,16 +21,24 @@ export class CourseItemComponent implements OnInit {
   public date: any = "";
   @Input()
   public topRated: boolean | undefined = false;
+  @Input()
+  public id:number = 0;
   public buttons: string[] = [];
 
-  constructor() {
+  constructor(public courseRedactorService:CourseRedactorService, public itemListService:ItemListService) {
   }
 
   ngOnInit(): void {
     this.buttons = ["Edit", "Delete"];
   }
 
-  enableBtn(event: any): void {
-    console.log(`Button ${event} is enabled`);
+  enableBtn(event: string): void {
+    if (event === "Edit"){
+      this.courseRedactorService.isRedactorOn = true;
+    }
+    if (event === "Delete") {
+      console.log(this.id);
+      this.itemListService.removeItem(this.id);
+    }
   }
 }

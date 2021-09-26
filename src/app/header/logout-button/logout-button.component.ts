@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthorizationService} from "../../common/services/authorization.service";
 
 @Component({
   selector: 'app-logout-button',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authorizationService: AuthorizationService) {
+  }
+
+  onClick(): void {
+    if (this.authorizationService.isAuthenticated()) {
+      this.authorizationService.logOut();
+    }
+  }
 
   ngOnInit(): void {
   }

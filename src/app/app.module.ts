@@ -24,6 +24,8 @@ import { LoginButtonComponent } from './header/login-button/login-button.compone
 import { LogoutButtonComponent } from './header/logout-button/logout-button.component';
 import {LoginPageService} from "./login-page/login-page.service";
 import {AuthorizationService} from "./common/services/authorization.service";
+import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
+import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 
 
 
@@ -47,6 +49,7 @@ import {AuthorizationService} from "./common/services/authorization.service";
     LoginPageComponent,
     LoginButtonComponent,
     LogoutButtonComponent,
+    CourseRedactorComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ import {AuthorizationService} from "./common/services/authorization.service";
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [LoginPageService, AuthorizationService],
+  providers: [LoginPageService, AuthorizationService, CourseRedactorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

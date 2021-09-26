@@ -6,6 +6,7 @@ import {MOCKUP_COURSE_LIST, MOCKUP_COURSE_ITEM} from "../constants/constants";
   providedIn: 'root'
 })
 export class ItemListService {
+  public indexOfId: number = 0;
   public dataList: CourseContent[] = [];
   @Input() public courseItem: CourseContent = MOCKUP_COURSE_ITEM;
 
@@ -21,14 +22,32 @@ export class ItemListService {
     this.dataList.push(this.courseItem);
   }
 
-  getItemById(id: number): CourseContent {
-    return this.dataList[id];
+  getItemById(id: number): CourseContent | boolean {
+    this.dataList.forEach((item) => {
+      if (item.id === id) {
+        return item;
+      } else {
+        return false
+      }
+    });
+    return false;
   }
 
-// returns boolean for ngif
-  removeItem(id: number): boolean {
-    this.dataList.splice(id, 1);
-    return false;
+  getIndexById(id: number): void {
+    this.dataList.forEach((item, index) => {
+      if (item.id === id) {
+        this.indexOfId = index;
+      }
+    })
+  }
+
+
+  removeItem(id: number): void {
+    this.getIndexById(id);
+    console.log(this.indexOfId);
+    if (confirm("Do you really want to delete this course? Yes/No")) {
+      this.dataList.splice(this.indexOfId, 1);
+    }
   }
 
   updateCourse(id: number, item: CourseContent): void {
