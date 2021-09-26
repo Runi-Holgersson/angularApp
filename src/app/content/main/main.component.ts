@@ -15,6 +15,7 @@ import {MainListService} from "./main-list.service";
 export class MainComponent implements OnInit, DoCheck {
   @Output() public courseItem: CourseContent[] = [];
   public courseData: CourseContent[] = [];
+  public searchData: string = "";
 
   constructor(public itemListService: ItemListService, private datePipe: DatePipe,
               private searchFilterPipe: SearchFilterPipe, private orderByPipe: OrderByPipe,
@@ -25,26 +26,20 @@ export class MainComponent implements OnInit, DoCheck {
     });
   }
 
-  formatData(coursesArray: CourseContent[], format: string): CourseContent[] {
-    coursesArray = this.courseData.map(item => {
-      item.date = this.datePipe.transform(item.date, format);
-      return item;
-    })
-    return coursesArray;
-  }
-
   onSearch(event: string) {
-    if (event === "") {
-      this.courseItem = this.orderByPipe.transform(this.formatData(this.courseData, 'dd.MM.yy'));
-    }
-    this.courseItem = this.searchFilterPipe.transform(this.courseData, event);
+    this.searchData = event;
   }
 
   ngOnInit(): void {
-    this.courseItem = this.orderByPipe.transform(this.formatData(this.courseData, 'dd.MM.yy'));
+    this.courseItem = this.orderByPipe.transform(this.mainListService
+      .formatData(this.courseItem, this.courseData, 'dd.MM.yy'));
   }
 
   ngDoCheck() {
-    this.courseItem = this.orderByPipe.transform(this.formatData(this.courseData, 'dd.MM.yy'));
+    if (this.searchData === "") {
+      this.courseItem = this.orderByPipe.transform(this.mainListService
+        .formatData(this.courseItem, this.courseData, 'dd.MM.yy'));
+    }
+    this.courseItem = this.orderByPipe.transform(this.searchFilterPipe.transform(this.courseData, this.searchData));
   }
 }
