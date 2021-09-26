@@ -18,8 +18,8 @@ export class ItemListService {
     return this.dataList;
   }
 
-  createCourse(): void {
-    this.dataList.push(this.courseItem);
+  createCourse(course:CourseContent): void {
+    this.dataList.push(course);
   }
 
   getItemById(id: number): void {

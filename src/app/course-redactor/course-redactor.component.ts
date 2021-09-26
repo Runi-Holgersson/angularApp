@@ -21,6 +21,7 @@ export class CourseRedactorComponent implements OnInit {
   public topRated: boolean | undefined = false;
   @Input()
   public id: number = 0;
+  public buttonName: string = "";
   changingCourse: CourseContent = {
     title: this.title,
     description: this.description,
@@ -30,7 +31,12 @@ export class CourseRedactorComponent implements OnInit {
     id: this.id
   }
   constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService) {
-    this.changingCourse = this.itemListService.courseItem;
+   if(!this.courseRedactorService.isAddNewCourseOn) {
+     this.changingCourse = this.itemListService.courseItem;
+     this.buttonName = "Update courses list";
+   } else {
+     this.buttonName = "Add new course";
+   }
   }
 
   ngOnInit(): void {
@@ -38,13 +44,18 @@ export class CourseRedactorComponent implements OnInit {
 
   clicked() {
     Object.assign(this.changingCourse, {
-      title: this.title,
+      title: this.title? this.title: this.changingCourse.title,
       duration: this.duration,
       description: this.description,
       date: this.date,
       topRated: this.topRated,
     });
-    this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
+    if(!this.courseRedactorService.isAddNewCourseOn){
+      this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
+    }else {
+      this.itemListService.createCourse(this.changingCourse);
+      this.courseRedactorService.isAddNewCourseOn = false;
+    }
     this.courseRedactorService.isRedactorOn = false;
     console.log(this.changingCourse);
   }
