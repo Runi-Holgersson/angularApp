@@ -31,14 +31,12 @@ export class MainComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.courseItem = this.orderByPipe.transform(this.mainListService
-      .formatData(this.courseItem, this.courseData, 'dd.MM.yy'));
+    this.courseItem = this.orderByPipe.transform(this.courseData);
   }
 
   ngDoCheck() {
     if (this.searchData === "") {
-      this.courseItem = this.orderByPipe.transform(this.mainListService
-        .formatData(this.courseItem, this.courseData, 'dd.MM.yy'));
+      this.courseItem = this.orderByPipe.transform(this.courseData);
     }
     this.courseItem = this.orderByPipe.transform(this.searchFilterPipe.transform(this.courseData, this.searchData));
   }
