@@ -7,8 +7,7 @@
   <input type="text" [(ngModel)]="date" placeholder="{{changingCourse.date}}">
   <div>Description</div>
   <input type="text" [(ngModel)]="description" placeholder="{{changingCourse.description}}">
-  <div>Is top-rated</div>
-  <input type="radio" [checked]="topRated">
+  <div>Is top-rated</div><input type="checkbox" [checked]="checkboxStatus" (change)="changeCheckbox()">
   <button (click)="clicked()">{{buttonName}}</button>
 </div>
 
