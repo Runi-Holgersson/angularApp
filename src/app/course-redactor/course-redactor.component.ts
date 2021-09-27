@@ -16,7 +16,7 @@ export class CourseRedactorComponent {
   @Input()
   public description: string = "";
   @Input()
-  public date: any = "";
+  public date: number = 0;
   @Input()
   public topRated: boolean | undefined = false;
   @Input()
@@ -43,9 +43,9 @@ export class CourseRedactorComponent {
   clicked() {
     Object.assign(this.changingCourse, {
       title: this.title ? this.title : this.changingCourse.title,
-      duration: this.duration,
-      description: this.description,
-      date: this.date,
+      duration: this.duration ? this.duration : this.changingCourse.duration,
+      description: this.description ? this.description : this.changingCourse.description,
+      date: this.date ? this.date : this.changingCourse.date,
       topRated: this.topRated,
     });
     if (!this.courseRedactorService.isAddNewCourseOn) {
