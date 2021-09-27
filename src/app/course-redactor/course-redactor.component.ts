@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent} from "../common/interfaces/interfaces";
 import {CourseRedactorService} from "./course-redactor.service";
@@ -8,7 +8,7 @@ import {CourseRedactorService} from "./course-redactor.service";
   templateUrl: './course-redactor.component.html',
   styleUrls: ['./course-redactor.component.sass']
 })
-export class CourseRedactorComponent implements OnInit {
+export class CourseRedactorComponent {
   @Input()
   public title: string = "";
   @Input()
@@ -30,33 +30,30 @@ export class CourseRedactorComponent implements OnInit {
     duration: this.duration,
     id: this.id
   }
-  constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService) {
-   if(!this.courseRedactorService.isAddNewCourseOn) {
-     this.changingCourse = this.itemListService.courseItem;
-     this.buttonName = "Update courses list";
-   } else {
-     this.buttonName = "Add new course";
-   }
-  }
 
-  ngOnInit(): void {
+  constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService) {
+    if (!this.courseRedactorService.isAddNewCourseOn) {
+      this.changingCourse = this.itemListService.courseItem;
+      this.buttonName = "Update courses list";
+    } else {
+      this.buttonName = "Add new course";
+    }
   }
 
   clicked() {
     Object.assign(this.changingCourse, {
-      title: this.title? this.title: this.changingCourse.title,
+      title: this.title ? this.title : this.changingCourse.title,
       duration: this.duration,
       description: this.description,
       date: this.date,
       topRated: this.topRated,
     });
-    if(!this.courseRedactorService.isAddNewCourseOn){
+    if (!this.courseRedactorService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
-    }else {
+    } else {
       this.itemListService.createCourse(this.changingCourse);
       this.courseRedactorService.isAddNewCourseOn = false;
     }
     this.courseRedactorService.isRedactorOn = false;
-    console.log(this.changingCourse);
   }
 }

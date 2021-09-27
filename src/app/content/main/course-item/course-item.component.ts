@@ -39,7 +39,6 @@ export class CourseItemComponent implements OnInit {
       this.courseRedactorService.isRedactorOn = true;
     }
     if (event === "Delete") {
-      console.log(this.id);
       this.itemListService.removeItem(this.id);
     }
   }

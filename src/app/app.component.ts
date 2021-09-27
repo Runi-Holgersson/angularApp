@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {LoginPageService} from "./login-page/login-page.service";
 import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 
@@ -8,8 +8,7 @@ import {CourseRedactorService} from "./course-redactor/course-redactor.service";
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  constructor(public loginPageService:LoginPageService, public courseRedactorService:CourseRedactorService) {
+  constructor(public loginPageService: LoginPageService, public courseRedactorService: CourseRedactorService) {
   }
-
 }
 

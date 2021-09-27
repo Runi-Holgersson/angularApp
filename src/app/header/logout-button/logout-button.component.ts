@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthorizationService} from "../../common/services/authorization.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {AuthorizationService} from "../../common/services/authorization.service"
   templateUrl: './logout-button.component.html',
   styleUrls: ['./logout-button.component.sass']
 })
-export class LogoutButtonComponent implements OnInit {
+export class LogoutButtonComponent {
 
   constructor(public authorizationService: AuthorizationService) {
   }
@@ -16,8 +16,4 @@ export class LogoutButtonComponent implements OnInit {
       this.authorizationService.logOut();
     }
   }
-
-  ngOnInit(): void {
-  }
-
 }

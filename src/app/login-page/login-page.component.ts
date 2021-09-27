@@ -8,11 +8,12 @@ import {LoginPageService} from "./login-page.service";
   styleUrls: ['./login-page.component.sass']
 })
 export class LoginPageComponent {
-  constructor(public authorizationService:AuthorizationService, public loginPageService:LoginPageService) {
+  constructor(public authorizationService: AuthorizationService, public loginPageService: LoginPageService) {
   }
-clicked(){
+
+  clicked() {
     this.authorizationService.logIn();
     this.loginPageService.isLoginPageOn = false;
     console.log(this.authorizationService.isAuthenticated());
-}
+  }
 }
