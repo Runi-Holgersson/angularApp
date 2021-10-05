@@ -41,7 +41,6 @@ export class ItemListService {
 
   removeItem(id: number): void {
     this.getIndexById(id);
-    console.log(this.indexOfId);
     if (confirm("Do you really want to delete this course? Yes/No")) {
       this.dataList.splice(this.indexOfId, 1);
     }
