@@ -8,7 +8,6 @@ import {CourseRedactorService} from "./course-redactor/course-redactor.service";
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'angularApp';
   constructor(public loginPageService: LoginPageService, public courseRedactorService: CourseRedactorService) {
   }
 }
