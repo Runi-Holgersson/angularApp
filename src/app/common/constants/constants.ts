@@ -3,8 +3,8 @@ import {CourseContent} from "../interfaces/interfaces";
 export const MILLISECOND_IN_DAY: number = 1000 * 60 * 60 * 24;
 export const MINUTES_IN_HOUR: number = 60;
 export const MOCKUP_COURSE_LIST: CourseContent[] = [{
-  title: `Course 1`, duration: 120, date: 1632143639000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Ab deserunt, dignissimos dolores eaque eius eligendi.`, id: 0
+  title: `TestCourseTitle`, duration: 120, date: 1632143639000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  Ab deserunt, dignissimos dolores eaque eius eligendi.`, id: 1
 },
   {
     title: `Course 2`, duration: 130, date: 1467897239000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.

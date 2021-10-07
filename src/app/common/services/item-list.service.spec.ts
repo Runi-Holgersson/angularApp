@@ -17,4 +17,13 @@ describe('ItemListService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should update indexOfId variable with index of item for id=1', () => {
+    service.getIndexById(1);
+    expect(service.indexOfId).toBe(0);
+  });
+  it('should update courseItem variable with item, which id=1', () => {
+    service.getItemById(1);
+    console.log(service.courseItem);
+    expect(service.courseItem.title).toBe('TestCourseTitle');
+  })
 });
