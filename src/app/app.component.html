@@ -1,4 +1,9 @@
 <div class="wrapper">
-  <app-content></app-content>
-  <app-footer></app-footer>
+  <div class="container">
+    <app-header></app-header>
+    <app-course-redactor *ngIf="courseRedactorService.isRedactorOn"></app-course-redactor>
+    <app-login-page *ngIf="loginPageService.isLoginPageOn"></app-login-page>
+    <app-content *ngIf="!loginPageService.isLoginPageOn && !courseRedactorService.isRedactorOn"></app-content>
+    <app-footer></app-footer>
+  </div>
 </div>

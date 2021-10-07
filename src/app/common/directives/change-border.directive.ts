@@ -1,10 +1,8 @@
 import {Directive, ElementRef, Input} from '@angular/core';
-import {DatePipe} from "@angular/common";
 import {MILLISECOND_IN_DAY} from "../constants/constants";
 
 @Directive({
   selector: '[appChangeBorder]',
-  providers: [DatePipe]
 })
 export class ChangeBorderDirective {
   public currentDate: number = new Date().getTime();

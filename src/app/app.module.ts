@@ -4,10 +4,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 
 
+
 import {AppComponent} from './app.component';
 import {ContentComponent} from "./content/content.component";
 import {BreadcrumpsComponent} from "./content/breadcrumps/breadcrumps.component";
-import {HeaderComponent} from "./content/header/header.component";
+import {HeaderComponent} from "./header/header.component";
 import {MainComponent} from "./content/main/main.component";
 import {CourseItemComponent} from "./content/main/course-item/course-item.component";
 import {LoaderComponent} from "./content/main/loader/loader.component";
@@ -18,6 +19,13 @@ import { ChangeBorderDirective } from './common/directives/change-border.directi
 import { DurationPipe } from './common/pipes/duration.pipe';
 import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
 import { OrderByPipe } from './common/pipes/order-by.pipe';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginButtonComponent } from './header/login-button/login-button.component';
+import { LogoutButtonComponent } from './header/logout-button/logout-button.component';
+import {LoginPageService} from "./login-page/login-page.service";
+import {AuthorizationService} from "./common/services/authorization.service";
+import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
+import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 
 
 
@@ -38,6 +46,10 @@ import { OrderByPipe } from './common/pipes/order-by.pipe';
     DurationPipe,
     SearchFilterPipe,
     OrderByPipe,
+    LoginPageComponent,
+    LoginButtonComponent,
+    LogoutButtonComponent,
+    CourseRedactorComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +57,7 @@ import { OrderByPipe } from './common/pipes/order-by.pipe';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [LoginPageService, AuthorizationService, CourseRedactorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
