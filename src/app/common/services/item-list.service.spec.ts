@@ -11,7 +11,6 @@ describe('ItemListService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(ItemListService);
-    service.dataList = mockCourseList;
   });
 
   it('should be created', () => {
@@ -25,5 +24,13 @@ describe('ItemListService', () => {
     service.getItemById(1);
     console.log(service.courseItem);
     expect(service.courseItem.title).toBe('TestCourseTitle');
+  })
+  it('should update datalist with new item', () => {
+service.createCourse(mockCourseItem);
+expect(service.dataList[service.dataList.length-1].title).toBe('NEW course');
+  })
+  it('should update item by index=0 with new info', () => {
+    service.updateCourse(0, mockCourseItem);
+    expect(service.dataList[0].title).toBe('NEW course');
   })
 });
