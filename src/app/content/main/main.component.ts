@@ -17,7 +17,7 @@ export class MainComponent implements OnInit, DoCheck {
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
               private orderByPipe: OrderByPipe) {
-    this.courseData = itemListService.getDataList();
+    this.courseData = itemListService.dataList;
     this.courseData.forEach(item => {
       item.id = this.itemListService.getUniqueId();
     });

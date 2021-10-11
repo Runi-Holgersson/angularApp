@@ -19,17 +19,17 @@ export class ItemListService {
     this._dataList = dataList;
   }
 
-  getDataList(): CourseContent[] {
+  get dataList(): CourseContent[] {
     return this._dataList;
   }
 
   createCourse(course: CourseContent): void {
-    this._dataList.push(course);
+    this.dataList.push(course);
   }
 
 // use find
   setItemById(id: number): void {
-    this._dataList.forEach((item) => {
+    this.dataList.forEach((item) => {
       if (item.id === id) {
         this._courseItem = item;
       }
@@ -45,7 +45,7 @@ export class ItemListService {
   }
 
   setIndexById(id: number): void {
-    this._dataList.forEach((item, index) => {
+    this.dataList.forEach((item, index) => {
       if (item.id === id) {
         this._indexOfId = index;
       }
@@ -56,15 +56,15 @@ export class ItemListService {
   removeItem(id: number): void {
     this.setIndexById(id);
     if (confirm("Do you really want to delete this course? Yes/No")) {
-      this._dataList.splice(this.indexOfId, 1);
+      this.dataList.splice(this.indexOfId, 1);
     }
   }
 
   updateCourse(index: number, item: CourseContent): void {
-    this._dataList[index].title = item.title;
-    this._dataList[index].date = item.date;
-    this._dataList[index].description = item.description;
-    this._dataList[index].duration = item.duration;
+    this.dataList[index].title = item.title;
+    this.dataList[index].date = item.date;
+    this.dataList[index].description = item.description;
+    this.dataList[index].duration = item.duration;
   }
 
   getUniqueId(): number {

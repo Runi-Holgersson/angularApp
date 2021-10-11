@@ -7,8 +7,8 @@ export const MOCKUP_COURSE_LIST: CourseContent[] = [{
   Ab deserunt, dignissimos dolores eaque eius eligendi.`, id: 1
 },
   {
-    title: `Course 2`, duration: 130, date: 1467897239000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-  Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true, id: 0
+    title: `TestUpdateCourseTitle`, duration: 130, date: 1467897239000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+  Ab deserunt, dignissimos dolores eaque eius eligendi.`, topRated: true, id: 2
   },
   {
     title: `Course 3`, duration: 140, date: 1594646039000, description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
