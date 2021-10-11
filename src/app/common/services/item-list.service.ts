@@ -9,6 +9,7 @@ export class ItemListService {
   private _indexOfId: number = 0;
   private _dataList: CourseContent[] = [];
   private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
+  public idCollection: number[] = [];
 
   constructor() {
     this._dataList = MOCKUP_COURSE_LIST;
@@ -64,5 +65,14 @@ export class ItemListService {
     this._dataList[index].date = item.date;
     this._dataList[index].description = item.description;
     this._dataList[index].duration = item.duration;
+  }
+
+  getUniqueId(): number {
+    let currentRandomId: number = Math.floor(Math.random() * 1000);
+    while (this.idCollection.includes(currentRandomId)) {
+      currentRandomId = Math.floor(Math.random() * 1000);
+    }
+    this.idCollection.push(currentRandomId);
+    return currentRandomId;
   }
 }

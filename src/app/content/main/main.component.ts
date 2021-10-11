@@ -3,13 +3,12 @@ import {CourseContent} from "../../common/interfaces/interfaces";
 import {SearchFilterPipe} from "../../common/pipes/search-filter.pipe";
 import {OrderByPipe} from "../../common/pipes/order-by.pipe";
 import {ItemListService} from "../../common/services/item-list.service";
-import {MainListService} from "./main-list.service";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.sass'],
-  providers: [SearchFilterPipe, OrderByPipe, MainListService]
+  providers: [SearchFilterPipe, OrderByPipe]
 })
 export class MainComponent implements OnInit, DoCheck {
   @Output() public courseItem: CourseContent[] = [];
@@ -17,10 +16,10 @@ export class MainComponent implements OnInit, DoCheck {
   public searchData: string = "";
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
-              private orderByPipe: OrderByPipe, public mainListService: MainListService) {
+              private orderByPipe: OrderByPipe) {
     this.courseData = itemListService.getDataList();
     this.courseData.forEach(item => {
-      item.id = this.mainListService.getUniqueId();
+      item.id = this.itemListService.getUniqueId();
     });
   }
 
