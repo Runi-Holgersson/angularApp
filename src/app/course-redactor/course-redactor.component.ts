@@ -1,4 +1,4 @@
-import {Component, Input, DoCheck} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent} from "../common/interfaces/interfaces";
 import {CourseRedactorService} from "./course-redactor.service";
@@ -6,7 +6,8 @@ import {CourseRedactorService} from "./course-redactor.service";
 @Component({
   selector: 'app-course-redactor',
   templateUrl: './course-redactor.component.html',
-  styleUrls: ['./course-redactor.component.sass']
+  styleUrls: ['./course-redactor.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRedactorComponent implements DoCheck {
   @Input()

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DatePipe, UpperCasePipe} from "@angular/common";
 import {DurationPipe} from "../../../common/pipes/duration.pipe";
 import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
@@ -8,7 +8,8 @@ import {ItemListService} from "../../../common/services/item-list.service";
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.sass'],
-  providers: [DatePipe, UpperCasePipe, DurationPipe]
+  providers: [DatePipe, UpperCasePipe, DurationPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnInit {
   @Input()
