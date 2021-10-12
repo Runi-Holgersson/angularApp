@@ -15,7 +15,7 @@ export class ItemListService {
     this._dataList = MOCKUP_COURSE_LIST;
   }
 
-  setDataList(dataList: CourseContent[]): void {
+  set dataList(dataList: CourseContent[]) {
     this._dataList = dataList;
   }
 

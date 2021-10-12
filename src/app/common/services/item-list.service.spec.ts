@@ -18,12 +18,14 @@ describe('ItemListService', () => {
     expect(service).toBeTruthy();
   });
   it('should update indexOfId variable with index of item for id=1', () => {
-    spyOnProperty(service, "dataList", "get").and.returnValue(mockCourseList);
+    spyOnProperty(service, "dataList", "set").and.returnValue(mockCourseList);
     service.setIndexById(1);
     expect(service.indexOfId).toBe(0);
   });
   it('should update courseItem variable with item, which id=2', () => {
+    spyOnProperty(service, "dataList", "set").and.returnValue(mockCourseList);
     spyOnProperty(service, "dataList", "get").and.returnValue(mockCourseList);
+    console.log(service.dataList);
     service.setItemById(2);
     expect(service.courseItem.title).toBe('TestUpdateCourseTitle');
   })
