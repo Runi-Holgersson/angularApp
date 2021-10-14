@@ -27,6 +27,7 @@ import {AuthorizationService} from "./common/services/authorization.service";
 import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
 import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 import { HomePageComponent } from './home-page/home-page.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 
@@ -53,6 +54,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     LogoutButtonComponent,
     CourseRedactorComponent,
     HomePageComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
