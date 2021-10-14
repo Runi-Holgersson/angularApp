@@ -10,7 +10,8 @@ describe('ItemListService', () => {
   const mockCourseList: CourseContent[] = MOCKUP_COURSE_LIST;
   const mockCourseItem: CourseContent = MOCKUP_COURSE_ITEM;
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+    });
     service = TestBed.inject(ItemListService);
   });
 

@@ -1,6 +1,7 @@
 import {Component, DoCheck} from '@angular/core';
 import {LoginPageService} from "../../login-page/login-page.service";
 import {AuthorizationService} from "../../common/services/authorization.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-button',
@@ -10,7 +11,12 @@ import {AuthorizationService} from "../../common/services/authorization.service"
 export class LoginButtonComponent implements DoCheck {
   public userName: string | null = "Sign in";
 
-  constructor(public loginPageService: LoginPageService, public authorizationService: AuthorizationService) {
+  constructor(public loginPageService: LoginPageService, public authorizationService: AuthorizationService,
+              private router: Router) {
+  }
+
+  goToLoginPage() {
+    this.router.navigate(["/login-page"])
   }
 
   ngDoCheck() {

@@ -3,6 +3,7 @@ import {DatePipe, UpperCasePipe} from "@angular/common";
 import {DurationPipe} from "../../../common/pipes/duration.pipe";
 import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
 import {ItemListService} from "../../../common/services/item-list.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-item',
@@ -26,7 +27,8 @@ export class CourseItemComponent implements OnInit {
   public id:number = 0;
   public buttons: string[] = [];
 
-  constructor(public courseRedactorService:CourseRedactorService, public itemListService:ItemListService) {
+  constructor(public courseRedactorService:CourseRedactorService, public itemListService:ItemListService,
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class CourseItemComponent implements OnInit {
       this.itemListService.setItemById(this.id);
       this.itemListService.setIndexById(this.id);
       this.courseRedactorService.isRedactorOn = true;
+      this.router.navigate(['/courses', this.id])
     }
     if (event === "Delete") {
       this.itemListService.removeItem(this.id);
