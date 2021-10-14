@@ -9,7 +9,8 @@ const routes: Routes = [
   {path: '', component: HomePageComponent},
   {path: 'courses', component: ContentComponent},
   {path: 'login-page', component: LoginPageComponent},
-  {path: 'courses/:id', component: CourseRedactorComponent}
+  {path: 'courses/:id', component: CourseRedactorComponent},
+  {path: 'courses/new', component: CourseRedactorComponent}
 ];
 
 @NgModule({

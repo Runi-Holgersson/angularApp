@@ -1,5 +1,6 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-panel',
@@ -7,7 +8,7 @@ import {CourseRedactorService} from "../../../course-redactor/course-redactor.se
   styleUrls: ['./search-panel.component.sass'],
 })
 export class SearchPanelComponent {
-  constructor(public courseRedactorService: CourseRedactorService) {
+  constructor(public courseRedactorService: CourseRedactorService, private router: Router) {
   }
 
   public inputValue: string = "";
@@ -19,6 +20,7 @@ export class SearchPanelComponent {
 
   addCourseClicked() {
     this.courseRedactorService.isAddNewCourseOn = true;
-    this.courseRedactorService.isRedactorOn = true;
+    this.router.navigate(['/courses/new']);
+    // this.courseRedactorService.isRedactorOn = true;
   }
 }
