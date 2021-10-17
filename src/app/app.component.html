@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="container">
     <app-header></app-header>
-    <app-breadcrumps></app-breadcrumps>
+    <app-breadcrumps [currentUrl]="currentUrl"></app-breadcrumps>
     <!-- <app-home-page></app-home-page>
     <app-course-redactor *ngIf="courseRedactorService.isRedactorOn"></app-course-redactor>
     <app-login-page *ngIf="loginPageService.isLoginPageOn"></app-login-page>
