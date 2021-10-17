@@ -20,7 +20,7 @@ export class SearchPanelComponent {
 
   addCourseClicked() {
     this.courseRedactorService.isAddNewCourseOn = true;
-    this.router.navigate(['/courses/new']);
+    this.router.navigate(['home/courses/new']);
     // this.courseRedactorService.isRedactorOn = true;
   }
 }

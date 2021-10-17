@@ -10,6 +10,7 @@ export class ItemListService {
   private _dataList: CourseContent[] = [];
   private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
   public idCollection: number[] = [];
+  public currentUrl: string = '';
 
   constructor() {
     this._dataList = MOCKUP_COURSE_LIST;

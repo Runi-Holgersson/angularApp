@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core'
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent} from "../common/interfaces/interfaces";
 import {CourseRedactorService} from "./course-redactor.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-redactor',
@@ -35,13 +35,15 @@ export class CourseRedactorComponent implements DoCheck {
   }
 
   constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,
-              private router: Router) {
+              private router: Router, private activatedRoute: ActivatedRoute) {
     if (!this.courseRedactorService.isAddNewCourseOn) {
       this.changingCourse = this.itemListService.courseItem;
       this.buttonName = "Update courses list";
       this.changingCourse.topRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
+      this.itemListService.currentUrl = this.router.url;
     } else {
       this.buttonName = "Add new course";
+      this.itemListService.currentUrl = this.router.url;
     }
   }
 
@@ -58,11 +60,13 @@ export class CourseRedactorComponent implements DoCheck {
     });
     if (!this.courseRedactorService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
-      this.router.navigate(['/courses']);
+      this.router.navigate(['home/courses']);
     } else {
       this.itemListService.createCourse(this.changingCourse);
       this.courseRedactorService.isAddNewCourseOn = false;
-      this.router.navigate(['/courses']);
+      this.router.navigate(['home/courses']);
+      // this.activatedRoute.data.subscribe(data => console.log(data, 'from redactor, create course'));
+      // console.log(this.router.url);
     }
   }
 

@@ -7,7 +7,7 @@ import {RouterModule} from "@angular/router";
 
 import {AppComponent} from './app.component';
 import {ContentComponent} from "./content/content.component";
-import {BreadcrumpsComponent} from "./content/breadcrumps/breadcrumps.component";
+import {BreadcrumpsComponent} from "./breadcrumps/breadcrumps.component";
 import {HeaderComponent} from "./header/header.component";
 import {MainComponent} from "./content/main/main.component";
 import {CourseItemComponent} from "./content/main/course-item/course-item.component";

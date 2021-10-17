@@ -15,7 +15,7 @@ export class LoginPageComponent {
 
   submitted() {
     this.authorizationService.logIn();
-    this.router.navigate(['/courses']);
+    this.router.navigate(['/home/courses']);
     // this.loginPageService.isLoginPageOn = false;
     console.log(this.authorizationService.isAuthenticated());
   }

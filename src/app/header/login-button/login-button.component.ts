@@ -16,7 +16,7 @@ export class LoginButtonComponent implements DoCheck {
   }
 
   goToLoginPage() {
-    this.router.navigate(["/login-page"])
+    this.router.navigate(["/home/login-page"])
   }
 
   ngDoCheck() {

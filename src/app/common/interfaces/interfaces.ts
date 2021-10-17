@@ -6,7 +6,7 @@ export interface CourseContent {
   topRated?: boolean,
   id: number
 }
-export interface LocalStorage {
-  "login": string,
-  "password": string
+export interface BreadCrumb {
+  label: string;
+  path: string;
 }

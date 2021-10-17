@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DatePipe, UpperCasePipe} from "@angular/common";
 import {DurationPipe} from "../../../common/pipes/duration.pipe";
 import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
 import {ItemListService} from "../../../common/services/item-list.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-item',
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   providers: [DatePipe, UpperCasePipe, DurationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseItemComponent implements OnInit {
+export class CourseItemComponent implements OnInit{
   @Input()
   public title: string = "";
   @Input()
@@ -28,7 +28,7 @@ export class CourseItemComponent implements OnInit {
   public buttons: string[] = [];
 
   constructor(public courseRedactorService:CourseRedactorService, public itemListService:ItemListService,
-              private router:Router) {
+              private router:Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -40,7 +40,8 @@ export class CourseItemComponent implements OnInit {
       this.itemListService.setItemById(this.id);
       this.itemListService.setIndexById(this.id);
       this.courseRedactorService.isRedactorOn = true;
-      this.router.navigate(['/courses', this.id])
+      this.router.navigate(['home/courses', this.id])
+      // this.activatedRoute.data.subscribe(data => console.log(data, 'edit course'));
     }
     if (event === "Delete") {
       this.itemListService.removeItem(this.id);
