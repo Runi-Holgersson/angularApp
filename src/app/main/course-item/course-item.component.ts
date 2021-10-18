@@ -1,8 +1,8 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DatePipe, UpperCasePipe} from "@angular/common";
-import {DurationPipe} from "../../../common/pipes/duration.pipe";
-import {CourseRedactorService} from "../../../course-redactor/course-redactor.service";
-import {ItemListService} from "../../../common/services/item-list.service";
+import {DurationPipe} from "../../common/pipes/duration.pipe";
+import {CourseRedactorService} from "../../course-redactor/course-redactor.service";
+import {ItemListService} from "../../common/services/item-list.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

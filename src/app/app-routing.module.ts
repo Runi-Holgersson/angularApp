@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomePageComponent} from "./home-page/home-page.component";
-import {ContentComponent} from "./content/content.component";
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {CourseRedactorComponent} from "./course-redactor/course-redactor.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
 import {AuthorizationGuard} from "./authorization.guard";
-import {MainComponent} from "./content/main/main.component";
+import {MainComponent} from "./main/main.component";
 
 const coursesRoutes: Routes = [
   {path: 'courses', component: MainComponent, canActivate: [AuthorizationGuard], data: {breadcrumb: 'Courses'}},

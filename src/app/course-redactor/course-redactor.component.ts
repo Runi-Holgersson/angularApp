@@ -40,10 +40,8 @@ export class CourseRedactorComponent implements DoCheck {
       this.changingCourse = this.itemListService.courseItem;
       this.buttonName = "Update courses list";
       this.changingCourse.topRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
-      this.itemListService.currentUrl = this.router.url;
     } else {
       this.buttonName = "Add new course";
-      this.itemListService.currentUrl = this.router.url;
     }
   }
 
@@ -51,7 +49,11 @@ export class CourseRedactorComponent implements DoCheck {
     this.changingCourse.topRated = !this.changingCourse.topRated;
   }
 
-  clicked() {
+  cancelled() {
+    this.router.navigate(['home/courses']);
+  }
+
+  saved() {
     Object.assign(this.changingCourse, {
       title: this.title ? this.title : this.changingCourse.title,
       duration: this.duration ? this.duration : this.changingCourse.duration,
@@ -65,8 +67,6 @@ export class CourseRedactorComponent implements DoCheck {
       this.itemListService.createCourse(this.changingCourse);
       this.courseRedactorService.isAddNewCourseOn = false;
       this.router.navigate(['home/courses']);
-      // this.activatedRoute.data.subscribe(data => console.log(data, 'from redactor, create course'));
-      // console.log(this.router.url);
     }
   }
 

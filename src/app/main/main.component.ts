@@ -1,8 +1,8 @@
 import {Component, Output, OnInit, DoCheck} from '@angular/core';
-import {CourseContent} from "../../common/interfaces/interfaces";
-import {SearchFilterPipe} from "../../common/pipes/search-filter.pipe";
-import {OrderByPipe} from "../../common/pipes/order-by.pipe";
-import {ItemListService} from "../../common/services/item-list.service";
+import {CourseContent} from "../common/interfaces/interfaces";
+import {SearchFilterPipe} from "../common/pipes/search-filter.pipe";
+import {OrderByPipe} from "../common/pipes/order-by.pipe";
+import {ItemListService} from "../common/services/item-list.service";
 import {Router} from "@angular/router";
 
 @Component({

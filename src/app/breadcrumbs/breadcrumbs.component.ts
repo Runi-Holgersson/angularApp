@@ -9,7 +9,7 @@ import {ItemListService} from "../common/services/item-list.service";
   templateUrl: './breadcrumps.component.html',
   styleUrls: ['./breadcrumps.component.sass']
 })
-export class BreadcrumpsComponent implements OnChanges {
+export class BreadcrumbsComponent implements OnChanges {
   public breadcrumbs: BreadCrumb[] = [];
   @Input() public currentUrl: string = '';
   public breadcrumb: BreadCrumb = {path: '', label: ''};
@@ -22,22 +22,17 @@ export class BreadcrumpsComponent implements OnChanges {
 
   buildBreadcrumbs(): void {
     this.breadcrumbs = [];
-    // this.testArr = this.currentUrl.split('/');
     // this.activatedRoute.data.subscribe(data => console.log(data));
     this.currentUrl.split('/').map((item, index) => {
       if(item.length) {
         this.breadcrumb.label = item;
         this.breadcrumb.path = this.currentUrl.split('/').slice(0, index+1).join('/');
-        console.log(this.breadcrumb);
         this.breadcrumbs.push(Object.assign({},this.breadcrumb));
       }
     })
   };
 
   ngOnChanges() {
-    console.log(this.currentUrl, 'from breadcrumps');
     this.buildBreadcrumbs();
-    console.log(this.breadcrumbs);
-    console.log(this.testArr);
   }
 }
