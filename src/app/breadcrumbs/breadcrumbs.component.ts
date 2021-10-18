@@ -22,7 +22,6 @@ export class BreadcrumbsComponent implements OnChanges {
 
   buildBreadcrumbs(): void {
     this.breadcrumbs = [];
-    // this.activatedRoute.data.subscribe(data => console.log(data));
     this.currentUrl.split('/').map((item, index) => {
       if(item.length) {
         this.breadcrumb.label = item;
