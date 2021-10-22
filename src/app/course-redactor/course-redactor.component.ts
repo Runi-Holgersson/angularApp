@@ -12,41 +12,44 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CourseRedactorComponent implements DoCheck {
   @Input()
-  public title: string = "";
+  public name: string = "";
   @Input()
-  public duration: number = 0;
+  public length: number = 0;
   @Input()
   public description: string = "";
   @Input()
-  public date: number = 0;
+  public date: string = "";
   @Input()
-  public topRated: boolean | undefined = false;
+  public isTopRated: boolean | undefined = false;
+  @Input()
+  public authors: [{}] = [{}];
   @Input()
   public id: number = 0;
   public buttonName: string = "";
   public checkboxStatus: string = "";
   changingCourse: CourseContent = {
-    title: this.title,
+    name: this.name,
     description: this.description,
     date: this.date,
-    topRated: this.topRated,
-    duration: this.duration,
-    id: this.id
+    isTopRated: this.isTopRated,
+    length: this.length,
+    id: this.id,
+    authors: [{}],
   }
 
   constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private router: Router) {
     if (!this.courseRedactorService.isAddNewCourseOn) {
       this.changingCourse = this.itemListService.courseItem;
       this.buttonName = "Update courses list";
-      this.changingCourse.topRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
+      this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
     } else {
       this.buttonName = "Add new course";
     }
   }
 
   changeCheckbox(): void {
-    this.changingCourse.topRated = !this.changingCourse.topRated;
+    this.changingCourse.isTopRated = !this.changingCourse.isTopRated;
   }
 
   cancelled() {
@@ -55,8 +58,8 @@ export class CourseRedactorComponent implements DoCheck {
 
   saved() {
     Object.assign(this.changingCourse, {
-      title: this.title ? this.title : this.changingCourse.title,
-      duration: this.duration ? this.duration : this.changingCourse.duration,
+      title: this.name ? this.name : this.changingCourse.name,
+      duration: this.length ? this.length : this.changingCourse.length,
       description: this.description ? this.description : this.changingCourse.description,
       date: this.date ? this.date : this.changingCourse.date,
     });
@@ -71,6 +74,6 @@ export class CourseRedactorComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    this.changingCourse.topRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
+    this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
   }
 }

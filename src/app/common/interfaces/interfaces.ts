@@ -1,10 +1,11 @@
 export interface CourseContent {
-  title: string,
-  duration: number,
-  date: number,
+  id: number,
+  name: string,
   description: string,
-  topRated?: boolean,
-  id: number
+  isTopRated?: boolean,
+  date: string,
+  authors: [{}],
+  length: number,
 }
 export interface BreadCrumb {
   label: string;

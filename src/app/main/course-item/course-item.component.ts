@@ -14,21 +14,21 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CourseItemComponent implements OnInit{
   @Input()
-  public title: string = "";
+  public name: string = "";
   @Input()
-  public duration: number = 0;
+  public length: number = 0;
   @Input()
   public description: string = "";
   @Input()
-  public date: number = 0;
+  public date: string = "";
   @Input()
-  public topRated: boolean | undefined = false;
+  public isTopRated: boolean | undefined = false;
   @Input()
   public id:number = 0;
   public buttons: string[] = [];
 
   constructor(public courseRedactorService:CourseRedactorService, public itemListService:ItemListService,
-              private router:Router, private activatedRoute: ActivatedRoute) {
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -36,11 +36,11 @@ export class CourseItemComponent implements OnInit{
   }
 
   enableBtn(event: string): void {
+    console.log(this.id);
     if (event === "Edit"){
+      this.router.navigate(['home/courses', this.id])
       this.itemListService.setItemById(this.id);
       this.itemListService.setIndexById(this.id);
-      this.courseRedactorService.isRedactorOn = true;
-      this.router.navigate(['home/courses', this.id])
       // this.activatedRoute.data.subscribe(data => console.log(data, 'edit course'));
     }
     if (event === "Delete") {

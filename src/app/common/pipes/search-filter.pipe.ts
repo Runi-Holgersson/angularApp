@@ -7,7 +7,7 @@ import {CourseContent} from "../interfaces/interfaces";
 export class SearchFilterPipe implements PipeTransform {
   transform(array: CourseContent[], searchValue: string): CourseContent[] {
     array = array.filter(item => {
-      return item.title.toLowerCase().indexOf(searchValue.toLowerCase(), 0) !== -1;
+      return item.name.toLowerCase().indexOf(searchValue.toLowerCase(), 0) !== -1;
     })
 
     return array;

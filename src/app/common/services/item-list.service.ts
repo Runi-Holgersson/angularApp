@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
-import {MOCKUP_COURSE_LIST, MOCKUP_COURSE_ITEM} from "../constants/constants";
+import {MOCKUP_COURSE_ITEM} from "../constants/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,6 @@ export class ItemListService {
   private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
   public idCollection: number[] = [];
   public currentUrl: string = '';
-
-  constructor() {
-    this._dataList = MOCKUP_COURSE_LIST;
-  }
 
   set dataList(dataList: CourseContent[]) {
     this._dataList = dataList;
@@ -62,10 +58,10 @@ export class ItemListService {
   }
 
   updateCourse(index: number, item: CourseContent): void {
-    this.dataList[index].title = item.title;
+    this.dataList[index].name = item.name;
     this.dataList[index].date = item.date;
     this.dataList[index].description = item.description;
-    this.dataList[index].duration = item.duration;
+    this.dataList[index].length = item.length;
   }
 
   getUniqueId(): number {

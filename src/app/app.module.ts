@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from "@angular/router";
-
+import {HttpClientModule} from "@angular/common/http";
 
 import {AppComponent} from './app.component';
 import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
@@ -59,7 +59,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [LoginPageService, AuthorizationService, CourseRedactorService],
   bootstrap: [AppComponent]
