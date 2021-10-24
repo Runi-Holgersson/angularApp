@@ -27,10 +27,9 @@ import { CourseRedactorComponent } from './course-redactor/course-redactor.compo
 import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 import { HomePageComponent } from './home-page/home-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -60,7 +59,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [LoginPageService, AuthorizationService, CourseRedactorService],
   bootstrap: [AppComponent]

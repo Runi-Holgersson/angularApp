@@ -1,5 +1,9 @@
 <div class="header">
-  <a routerLink="/"><div class="logo"><img [src]="imgUrl" alt="angular logo"></div></a>
+  <div class="logo-container"><a routerLink="/">
+    <div class="logo"><img [src]="imgUrl" alt="angular logo"></div>
+  </a>
+    <div><span>ANGULAR COURSES</span></div>
+  </div>
   <div class="btn-container">
     <app-login-button></app-login-button>
     <app-logout-button></app-logout-button>

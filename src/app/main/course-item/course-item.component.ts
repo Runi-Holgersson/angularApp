@@ -36,7 +36,6 @@ export class CourseItemComponent implements OnInit{
   }
 
   enableBtn(event: string): void {
-    console.log(this.id);
     if (event === "Edit"){
       this.router.navigate(['home/courses', this.id])
       this.itemListService.setItemById(this.id);

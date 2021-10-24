@@ -1,8 +1,8 @@
 <div appChangeBorder [creationDate]="date" class="item-container" [ngClass]="{'top-rated': isTopRated}">
-  <div class="description-wrapper">
+  <div class="description-wrapper mat-background-primary">
     <div class="title-row">
       <div>{{name | uppercase}}
-        <span *ngIf="isTopRated" class="star-rating">
+        <span *ngIf="isTopRated" class="mat-background-warn">
           <i class="fa fa-star" aria-hidden="true"></i>
         </span>
       </div>
@@ -14,3 +14,4 @@
     <app-button *ngFor="let button of buttons" [buttonTitle]="button" (onClick)="enableBtn($event)"></app-button>
   </div>
 </div>
+

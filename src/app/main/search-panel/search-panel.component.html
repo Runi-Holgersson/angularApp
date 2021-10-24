@@ -1,4 +1,9 @@
-<input type="text" name="test" [(ngModel)]="inputValue" placeholder="search course">
-<button class="search" (click)="filterHandler(inputValue)">..Search {{inputValue}}</button>
-<button class="add" (click)="addCourseClicked()">Add course</button>
+<div class="search-field-wrapper">
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput [(ngModel)]="inputValue">
+  </mat-form-field>
+  <button mat-raised-button class="search" (click)="filterHandler(inputValue)">..Search {{inputValue}}</button>
+</div>
+<button mat-raised-button class="add" (click)="addCourseClicked()">Add course</button>
 
