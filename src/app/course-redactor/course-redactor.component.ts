@@ -3,6 +3,7 @@ import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent, Author} from "../common/interfaces/interfaces";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {ITEMS_IN_PAGE} from "../common/constants/constants";
 
 @Component({
   selector: 'app-course-redactor',
@@ -67,10 +68,7 @@ export class CourseRedactorComponent implements DoCheck {
     if (!this.itemListService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.changingCourse)
         .subscribe(() => {
-          this.http.get<CourseContent[]>('http://localhost:3004/courses')
-            .subscribe((data) => {
-              this.itemListService.dataList = data;
-            });
+          this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE)
         });
 
       this.router.navigate(['home/courses']);

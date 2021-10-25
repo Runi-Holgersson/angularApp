@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
-import {MOCKUP_COURSE_ITEM} from "../constants/constants";
+import {ITEMS_IN_PAGE, MOCKUP_COURSE_ITEM} from "../constants/constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
@@ -14,6 +14,9 @@ export class ItemListService {
   public idCollection: number[] = [];
   public currentUrl: string = '';
   public isAddNewCourseOn: boolean = false;
+  public currentPage: number = 0;
+  public isPageButtonsNotActive: boolean = false;
+
 
   constructor(private http: HttpClient) {
   }
@@ -41,10 +44,7 @@ export class ItemListService {
   createCourse(course: CourseContent): void {
     this.http.post(`http://localhost:3004/courses`, course).subscribe(
       () => {
-        this.http.get<CourseContent[]>('http://localhost:3004/courses')
-          .subscribe((data) => {
-            this.dataList = data;
-          });
+        this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE)
       }
     );
     // this.dataList.push(course);

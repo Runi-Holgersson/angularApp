@@ -29,6 +29,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from '@angular/material/input';
+import { PagingComponent } from './main/loader/paging/paging.component';
+import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.component";
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import {MatInputModule} from '@angular/material/input';
     CourseRedactorComponent,
     HomePageComponent,
     ErrorPageComponent,
+    PagingComponent,
+    PageButtonComponent
   ],
   imports: [
     BrowserModule,

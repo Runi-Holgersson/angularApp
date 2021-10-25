@@ -1,3 +1,3 @@
-<button mat-raised-button class="load" *ngIf="!!courseItemsCount; else noData" (click)="loadContent()">load here...</button>
+<app-paging *ngIf="!!courseItemsCount; else noData"></app-paging>
 <ng-template #noData><p>No data. Feel free to add new course</p></ng-template>
 

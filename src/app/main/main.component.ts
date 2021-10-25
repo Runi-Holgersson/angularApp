@@ -5,6 +5,7 @@ import {OrderByPipe} from "../common/pipes/order-by.pipe";
 import {ItemListService} from "../common/services/item-list.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {ITEMS_IN_PAGE} from "../common/constants/constants";
 
 @Component({
   selector: 'app-main',
@@ -30,7 +31,7 @@ export class MainComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.courseItem = this.orderByPipe.transform(this.itemListService.getDatabaseList(0, 5));
+    this.courseItem = this.orderByPipe.transform(this.itemListService.getDatabaseList(0, ITEMS_IN_PAGE));
   }
 
   ngDoCheck() {

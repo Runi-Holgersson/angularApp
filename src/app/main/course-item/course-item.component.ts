@@ -5,6 +5,7 @@ import {ItemListService} from "../../common/services/item-list.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {CourseContent} from "../../common/interfaces/interfaces";
+import {ITEMS_IN_PAGE} from "../../common/constants/constants";
 
 @Component({
   selector: 'app-course-item',
@@ -13,7 +14,7 @@ import {CourseContent} from "../../common/interfaces/interfaces";
   providers: [DatePipe, UpperCasePipe, DurationPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseItemComponent implements OnInit{
+export class CourseItemComponent implements OnInit {
   @Input()
   public name: string = "";
   @Input()
@@ -25,11 +26,11 @@ export class CourseItemComponent implements OnInit{
   @Input()
   public isTopRated: boolean | undefined = false;
   @Input()
-  public id:number = 0;
+  public id: number = 0;
   public buttons: string[] = [];
 
-  constructor(public itemListService:ItemListService, private http: HttpClient,
-              private router:Router) {
+  constructor(public itemListService: ItemListService, private http: HttpClient,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class CourseItemComponent implements OnInit{
   }
 
   enableBtn(event: string): void {
-    if (event === "Edit"){
+    if (event === "Edit") {
       this.router.navigate(['home/courses', this.id])
       this.itemListService.setItemById(this.id);
       this.itemListService.setIndexById(this.id);
@@ -45,7 +46,11 @@ export class CourseItemComponent implements OnInit{
     }
     if (event === "Delete") {
       this.http.delete<void>(`http://localhost:3004/courses/${this.id}`)
-        .subscribe(() =>this.itemListService.dataList = this.itemListService.dataList.filter(item => item.id !== this.id));
+        .subscribe(() =>{
+            this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE)
+            console.log(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1));
+        }
+        );
     }
   }
 }

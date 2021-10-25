@@ -27,3 +27,8 @@ export interface Author {
   firstName: string,
   lastName: string
 }
+
+export interface Page {
+  number: number,
+  isActivated: boolean
+}
