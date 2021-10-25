@@ -24,7 +24,6 @@ import { LogoutButtonComponent } from './header/logout-button/logout-button.comp
 import {LoginPageService} from "./login-page/login-page.service";
 import {AuthorizationService} from "./common/services/authorization.service";
 import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
-import {CourseRedactorService} from "./course-redactor/course-redactor.service";
 import { HomePageComponent } from './home-page/home-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -64,7 +63,7 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     MatInputModule
   ],
-  providers: [LoginPageService, AuthorizationService, CourseRedactorService],
+  providers: [LoginPageService, AuthorizationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

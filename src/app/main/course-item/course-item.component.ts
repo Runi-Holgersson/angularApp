@@ -1,7 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DatePipe, UpperCasePipe} from "@angular/common";
 import {DurationPipe} from "../../common/pipes/duration.pipe";
-import {CourseRedactorService} from "../../course-redactor/course-redactor.service";
 import {ItemListService} from "../../common/services/item-list.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
@@ -43,7 +42,6 @@ export class CourseItemComponent implements OnInit{
       this.itemListService.setItemById(this.id);
       this.itemListService.setIndexById(this.id);
       this.itemListService.isAddNewCourseOn = false;
-      // this.activatedRoute.data.subscribe(data => console.log(data, 'edit course'));
     }
     if (event === "Delete") {
       this.http.delete<void>(`http://localhost:3004/courses/${this.id}`)

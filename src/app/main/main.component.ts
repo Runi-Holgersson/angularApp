@@ -29,16 +29,8 @@ export class MainComponent implements OnInit, DoCheck {
     this.searchData = event;
   }
 
-  getDataList(): CourseContent[] {
-    this.http.get<CourseContent[]>('http://localhost:3004/courses')
-      .subscribe((data) => {
-        this.itemListService.dataList = data;
-      });
-    return this.itemListService.dataList;
-  }
-
   ngOnInit(): void {
-    this.courseItem = this.orderByPipe.transform(this.getDataList());
+    this.courseItem = this.orderByPipe.transform(this.itemListService.getDatabaseList(0, 5));
   }
 
   ngDoCheck() {

@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent, Author} from "../common/interfaces/interfaces";
-import {CourseRedactorService} from "./course-redactor.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-course-redactor',
@@ -37,10 +37,11 @@ export class CourseRedactorComponent implements DoCheck {
     authors: [{id: 0, firstName: '', lastName: ''}],
   }
 
-  constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,
-              private router: Router) {
+  constructor(private http: HttpClient, public itemListService: ItemListService, private router: Router) {
     if (!this.itemListService.isAddNewCourseOn) {
-      this.changingCourse = this.itemListService.courseItem;
+      Object.assign(this.changingCourse, this.itemListService.courseItem);
+      console.log(this.itemListService.courseItem);
+      console.log(this.changingCourse);
       this.buttonName = "Update courses list";
       this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
     } else {
@@ -58,17 +59,24 @@ export class CourseRedactorComponent implements DoCheck {
 
   saved() {
     Object.assign(this.changingCourse, {
-      title: this.name ? this.name : this.changingCourse.name,
-      duration: this.length ? this.length : this.changingCourse.length,
+      name: this.name ? this.name : this.changingCourse.name,
+      length: this.length ? this.length : this.changingCourse.length,
       description: this.description ? this.description : this.changingCourse.description,
       date: this.date ? this.date : this.changingCourse.date,
     });
-    if (!this.courseRedactorService.isAddNewCourseOn) {
-      this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
+    if (!this.itemListService.isAddNewCourseOn) {
+      this.itemListService.updateCourse(this.changingCourse)
+        .subscribe(() => {
+          this.http.get<CourseContent[]>('http://localhost:3004/courses')
+            .subscribe((data) => {
+              this.itemListService.dataList = data;
+            });
+        });
+
       this.router.navigate(['home/courses']);
     } else {
       this.itemListService.createCourse(this.changingCourse);
-      this.courseRedactorService.isAddNewCourseOn = false;
+      this.itemListService.isAddNewCourseOn = false;
       this.router.navigate(['home/courses']);
     }
   }

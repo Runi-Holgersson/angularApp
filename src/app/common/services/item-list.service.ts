@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
 import {MOCKUP_COURSE_ITEM} from "../constants/constants";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ export class ItemListService {
   private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
   public idCollection: number[] = [];
   public currentUrl: string = '';
-  public  isAddNewCourseOn: boolean = false;
+  public isAddNewCourseOn: boolean = false;
+
+  constructor(private http: HttpClient) {
+  }
 
   set dataList(dataList: CourseContent[]) {
     this._dataList = dataList;
@@ -21,8 +26,28 @@ export class ItemListService {
     return this._dataList;
   }
 
+  getDatabaseList(start: number, count: number): CourseContent[] {
+    this.http.get<CourseContent[]>('http://localhost:3004/courses', {
+      params: new HttpParams()
+        .set('start', start.toString())
+        .set('count', count.toString())
+    })
+      .subscribe((data) => {
+        this.dataList = data;
+      });
+    return this.dataList;
+  }
+
   createCourse(course: CourseContent): void {
-    this.dataList.push(course);
+    this.http.post(`http://localhost:3004/courses`, course).subscribe(
+      () => {
+        this.http.get<CourseContent[]>('http://localhost:3004/courses')
+          .subscribe((data) => {
+            this.dataList = data;
+          });
+      }
+    );
+    // this.dataList.push(course);
   }
 
 // use find
@@ -58,11 +83,8 @@ export class ItemListService {
     }
   }
 
-  updateCourse(index: number, item: CourseContent): void {
-    this.dataList[index].name = item.name;
-    this.dataList[index].date = item.date;
-    this.dataList[index].description = item.description;
-    this.dataList[index].length = item.length;
+  updateCourse(item: CourseContent): Observable<CourseContent> {
+    return this.http.put<CourseContent>(`http://localhost:3004/courses/${item.id}`, item);
   }
 
   getUniqueId(): number {

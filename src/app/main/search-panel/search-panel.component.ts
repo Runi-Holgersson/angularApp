@@ -1,5 +1,4 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import {CourseRedactorService} from "../../course-redactor/course-redactor.service";
 import {Router} from "@angular/router";
 import {ItemListService} from "../../common/services/item-list.service";
 
