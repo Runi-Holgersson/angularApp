@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
-import {CourseContent} from "../common/interfaces/interfaces";
+import {CourseContent, Author} from "../common/interfaces/interfaces";
 import {CourseRedactorService} from "./course-redactor.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -22,7 +22,7 @@ export class CourseRedactorComponent implements DoCheck {
   @Input()
   public isTopRated: boolean | undefined = false;
   @Input()
-  public authors: [{}] = [{}];
+  public authors: Author[] = [{id: 0, firstName: '', lastName: ''}];
   @Input()
   public id: number = 0;
   public buttonName: string = "";
@@ -34,7 +34,7 @@ export class CourseRedactorComponent implements DoCheck {
     isTopRated: this.isTopRated,
     length: this.length,
     id: this.id,
-    authors: [{}],
+    authors: [{id: 0, firstName: '', lastName: ''}],
   }
 
   constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,

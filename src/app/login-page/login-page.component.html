@@ -1,8 +1,8 @@
   <div class="login-container" id="login">
-    <div>Email *Required</div>
-    <input type="text" [(ngModel)]="authorizationService.email">
+    <div>Login *Required</div>
+    <input type="text" [(ngModel)]="user.login">
     <div>Password *Required</div>
-    <input type="text" [(ngModel)]="authorizationService.password">
+    <input type="text" [(ngModel)]="user.password">
     <button (click)="submitted()">Submit</button>
   </div>
 

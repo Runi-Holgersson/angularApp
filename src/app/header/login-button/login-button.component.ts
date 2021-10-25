@@ -21,7 +21,8 @@ export class LoginButtonComponent implements DoCheck {
 
   ngDoCheck() {
     if (this.authorizationService.isAuthenticated()) {
-      this.userName = this.authorizationService.getUserInfo();
+      this.userName = 'user signed';
+
     } else {
       this.userName = "Sign in";
     }

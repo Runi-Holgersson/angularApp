@@ -1,28 +1,35 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
-  public email: string = "";
-  public password: string = "";
+  public userFullName: string = '';
 
-  logIn(): void {
-    localStorage.setItem("login", this.email);
-    localStorage.setItem("password", this.password);
+  constructor(private http: HttpClient) {
+  }
+
+  logIn(token: string): void {
+    localStorage.setItem("token", token);
   }
 
   logOut(): void {
-    this.email = "";
-    this.password = ""
-    this.logIn();
+    localStorage.setItem("token", '');
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem("login");
+    return !!localStorage.getItem("token");
   }
 
-  getUserInfo(): string | null {
-    return localStorage.getItem("login");
+
+  getUserInfo() {
+    this.http.post('http://localhost:3004/auth/userinfo', {}, {
+      headers: new HttpHeaders({
+        'Authorization': `${localStorage.getItem('token')}`
+      })
+    })
+      .subscribe(data => console.log(data));
   }
 }

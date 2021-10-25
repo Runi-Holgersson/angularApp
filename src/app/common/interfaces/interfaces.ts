@@ -4,10 +4,26 @@ export interface CourseContent {
   description: string,
   isTopRated?: boolean,
   date: string,
-  authors: [{}],
+  authors: Author[],
   length: number,
 }
+
 export interface BreadCrumb {
-  label: string;
-  path: string;
+  label: string,
+  path: string,
+}
+
+export interface User {
+  login: string,
+  password: string,
+}
+
+export interface Token {
+  token: string,
+}
+
+export interface Author {
+  id: number,
+  firstName: string,
+  lastName: string
 }
