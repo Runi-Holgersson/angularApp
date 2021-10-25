@@ -39,7 +39,7 @@ export class CourseRedactorComponent implements DoCheck {
 
   constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,
               private router: Router) {
-    if (!this.courseRedactorService.isAddNewCourseOn) {
+    if (!this.itemListService.isAddNewCourseOn) {
       this.changingCourse = this.itemListService.courseItem;
       this.buttonName = "Update courses list";
       this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";

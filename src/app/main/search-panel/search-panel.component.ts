@@ -1,6 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {CourseRedactorService} from "../../course-redactor/course-redactor.service";
 import {Router} from "@angular/router";
+import {ItemListService} from "../../common/services/item-list.service";
 
 @Component({
   selector: 'app-search-panel',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./search-panel.component.sass'],
 })
 export class SearchPanelComponent {
-  constructor(public courseRedactorService: CourseRedactorService, private router: Router) {
+  constructor(public itemListService: ItemListService, private router: Router) {
   }
 
   public inputValue: string = "";
@@ -19,7 +20,7 @@ export class SearchPanelComponent {
   }
 
   addCourseClicked() {
-    this.courseRedactorService.isAddNewCourseOn = true;
+    this.itemListService.isAddNewCourseOn = true;
     this.router.navigate(['home/courses/new']);
     // this.courseRedactorService.isRedactorOn = true;
   }

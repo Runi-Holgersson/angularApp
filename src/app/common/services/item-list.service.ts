@@ -11,6 +11,7 @@ export class ItemListService {
   private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
   public idCollection: number[] = [];
   public currentUrl: string = '';
+  public  isAddNewCourseOn: boolean = false;
 
   set dataList(dataList: CourseContent[]) {
     this._dataList = dataList;

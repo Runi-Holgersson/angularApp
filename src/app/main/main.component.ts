@@ -14,7 +14,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MainComponent implements OnInit, DoCheck {
   @Output() public courseItem: CourseContent[] = [];
-  public courseData: CourseContent[] = [];
+  // public courseData: CourseContent[] = [];
   public searchData: string = "";
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
@@ -32,9 +32,9 @@ export class MainComponent implements OnInit, DoCheck {
   getDataList(): CourseContent[] {
     this.http.get<CourseContent[]>('http://localhost:3004/courses')
       .subscribe((data) => {
-        this.courseData = data;
+        this.itemListService.dataList = data;
       });
-    return this.courseData;
+    return this.itemListService.dataList;
   }
 
   ngOnInit(): void {
@@ -43,8 +43,8 @@ export class MainComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     if (this.searchData === "") {
-      this.courseItem = this.orderByPipe.transform(this.courseData);
+      this.courseItem = this.orderByPipe.transform(this.itemListService.dataList);
     }
-    this.courseItem = this.orderByPipe.transform(this.searchFilterPipe.transform(this.courseData, this.searchData));
+    this.courseItem = this.orderByPipe.transform(this.searchFilterPipe.transform(this.itemListService.dataList, this.searchData));
   }
 }
