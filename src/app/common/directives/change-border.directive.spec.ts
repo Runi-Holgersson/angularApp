@@ -15,13 +15,6 @@ class HostComponent {
 }
 
 describe('ChangeBorderDirective', () => {
-  /* const elemRef = {
-     nativeElement: {
-       style: {
-         borderColor: "",
-       }
-     }
-   };*/
   let directive: ChangeBorderDirective;
   let fixture: ComponentFixture<HostComponent>;
   beforeEach(() => {

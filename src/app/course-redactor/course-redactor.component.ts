@@ -1,12 +1,14 @@
-import {Component, Input, DoCheck} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent} from "../common/interfaces/interfaces";
 import {CourseRedactorService} from "./course-redactor.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-redactor',
   templateUrl: './course-redactor.component.html',
-  styleUrls: ['./course-redactor.component.sass']
+  styleUrls: ['./course-redactor.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRedactorComponent implements DoCheck {
   @Input()
@@ -32,7 +34,8 @@ export class CourseRedactorComponent implements DoCheck {
     id: this.id
   }
 
-  constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService) {
+  constructor(public itemListService: ItemListService, private courseRedactorService: CourseRedactorService,
+              private router: Router, private activatedRoute: ActivatedRoute) {
     if (!this.courseRedactorService.isAddNewCourseOn) {
       this.changingCourse = this.itemListService.courseItem;
       this.buttonName = "Update courses list";
@@ -46,7 +49,11 @@ export class CourseRedactorComponent implements DoCheck {
     this.changingCourse.topRated = !this.changingCourse.topRated;
   }
 
-  clicked() {
+  cancelled() {
+    this.router.navigate(['home/courses']);
+  }
+
+  saved() {
     Object.assign(this.changingCourse, {
       title: this.title ? this.title : this.changingCourse.title,
       duration: this.duration ? this.duration : this.changingCourse.duration,
@@ -55,11 +62,12 @@ export class CourseRedactorComponent implements DoCheck {
     });
     if (!this.courseRedactorService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.itemListService.indexOfId, this.changingCourse);
+      this.router.navigate(['home/courses']);
     } else {
       this.itemListService.createCourse(this.changingCourse);
       this.courseRedactorService.isAddNewCourseOn = false;
+      this.router.navigate(['home/courses']);
     }
-    this.courseRedactorService.isRedactorOn = false;
   }
 
   ngDoCheck() {

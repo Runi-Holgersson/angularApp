@@ -1,8 +1,9 @@
 import {Component, Output, OnInit, DoCheck} from '@angular/core';
-import {CourseContent} from "../../common/interfaces/interfaces";
-import {SearchFilterPipe} from "../../common/pipes/search-filter.pipe";
-import {OrderByPipe} from "../../common/pipes/order-by.pipe";
-import {ItemListService} from "../../common/services/item-list.service";
+import {CourseContent} from "../common/interfaces/interfaces";
+import {SearchFilterPipe} from "../common/pipes/search-filter.pipe";
+import {OrderByPipe} from "../common/pipes/order-by.pipe";
+import {ItemListService} from "../common/services/item-list.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,7 @@ export class MainComponent implements OnInit, DoCheck {
   public searchData: string = "";
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
-              private orderByPipe: OrderByPipe) {
+              private orderByPipe: OrderByPipe, private router:Router) {
     this.courseData = itemListService.dataList;
     this.courseData.forEach(item => {
       item.id = this.itemListService.getUniqueId();
@@ -29,6 +30,7 @@ export class MainComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.courseItem = this.orderByPipe.transform(this.courseData);
+    this.itemListService.currentUrl = this.router.url;
   }
 
   ngDoCheck() {

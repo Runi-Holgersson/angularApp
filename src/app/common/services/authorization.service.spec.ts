@@ -1,5 +1,4 @@
-import {TestBed, inject} from '@angular/core/testing';
-import {LocalStorage} from "../interfaces/interfaces";
+import {TestBed} from '@angular/core/testing';
 import {AuthorizationService} from './authorization.service';
 
 describe('AuthorizationService', () => {

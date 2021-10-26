@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthorizationService} from "../../common/services/authorization.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-logout-button',
@@ -8,12 +9,13 @@ import {AuthorizationService} from "../../common/services/authorization.service"
 })
 export class LogoutButtonComponent {
 
-  constructor(public authorizationService: AuthorizationService) {
+  constructor(public authorizationService: AuthorizationService, private router:Router) {
   }
 
   onClick(): void {
     if (this.authorizationService.isAuthenticated()) {
       this.authorizationService.logOut();
+      this.router.navigate(["/home/login-page"]);
     }
   }
 }

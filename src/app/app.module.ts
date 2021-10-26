@@ -2,19 +2,18 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
-
+import {RouterModule} from "@angular/router";
 
 
 import {AppComponent} from './app.component';
-import {ContentComponent} from "./content/content.component";
-import {BreadcrumpsComponent} from "./content/breadcrumps/breadcrumps.component";
+import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
 import {HeaderComponent} from "./header/header.component";
-import {MainComponent} from "./content/main/main.component";
-import {CourseItemComponent} from "./content/main/course-item/course-item.component";
-import {LoaderComponent} from "./content/main/loader/loader.component";
-import {SearchPanelComponent} from "./content/main/search-panel/search-panel.component";
+import {MainComponent} from "./main/main.component";
+import {CourseItemComponent} from "./main/course-item/course-item.component";
+import {LoaderComponent} from "./main/loader/loader.component";
+import {SearchPanelComponent} from "./main/search-panel/search-panel.component";
 import {FooterComponent} from './footer/footer.component';
-import {ButtonComponent} from './content/main/course-item/button/button.component';
+import {ButtonComponent} from './main/course-item/button/button.component';
 import { ChangeBorderDirective } from './common/directives/change-border.directive';
 import { DurationPipe } from './common/pipes/duration.pipe';
 import { SearchFilterPipe } from './common/pipes/search-filter.pipe';
@@ -26,6 +25,9 @@ import {LoginPageService} from "./login-page/login-page.service";
 import {AuthorizationService} from "./common/services/authorization.service";
 import { CourseRedactorComponent } from './course-redactor/course-redactor.component';
 import {CourseRedactorService} from "./course-redactor/course-redactor.service";
+import { HomePageComponent } from './home-page/home-page.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+
 
 
 
@@ -34,8 +36,7 @@ import {CourseRedactorService} from "./course-redactor/course-redactor.service";
   declarations: [
     AppComponent,
     FooterComponent,
-    ContentComponent,
-    BreadcrumpsComponent,
+    BreadcrumbsComponent,
     HeaderComponent,
     MainComponent,
     CourseItemComponent,
@@ -50,12 +51,15 @@ import {CourseRedactorService} from "./course-redactor/course-redactor.service";
     LoginButtonComponent,
     LogoutButtonComponent,
     CourseRedactorComponent,
+    HomePageComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [LoginPageService, AuthorizationService, CourseRedactorService],
   bootstrap: [AppComponent]
