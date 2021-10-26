@@ -1,2 +1,2 @@
-<button mat-raised-button [ngClass]="{'active': buttonIsActivated}"
+<button mat-raised-button [ngClass]="{'active': buttonNumber==this.itemListService.currentPage}"
         (click)="emitActivePage(buttonNumber)">{{buttonNumber}}</button>

@@ -7,20 +7,14 @@ import {ITEMS_IN_PAGE} from "../../../../common/constants/constants";
   templateUrl: './page-button.component.html',
   styleUrls: ['./page-button.component.sass']
 })
-export class PageButtonComponent implements OnInit {
+export class PageButtonComponent {
   @Input() public buttonNumber: number = 0;
-  public buttonIsActivated: boolean = false;
 
-  constructor(private itemListService: ItemListService) {
-  }
-
-  ngOnInit(): void {
+  constructor(public itemListService: ItemListService) {
   }
 
   emitActivePage(pageNumber: number) {
     this.itemListService.currentPage = pageNumber;
     this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (pageNumber - 1), ITEMS_IN_PAGE);
-    this.buttonIsActivated = true;
-    this.itemListService.isPageButtonsNotActive = true;
   }
 }
