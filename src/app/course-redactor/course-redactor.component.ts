@@ -41,8 +41,6 @@ export class CourseRedactorComponent implements DoCheck {
   constructor(private http: HttpClient, public itemListService: ItemListService, private router: Router) {
     if (!this.itemListService.isAddNewCourseOn) {
       Object.assign(this.changingCourse, this.itemListService.courseItem);
-      console.log(this.itemListService.courseItem);
-      console.log(this.changingCourse);
       this.buttonName = "Update courses list";
       this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
     } else {
@@ -66,10 +64,7 @@ export class CourseRedactorComponent implements DoCheck {
       date: this.date ? this.date : this.changingCourse.date,
     });
     if (!this.itemListService.isAddNewCourseOn) {
-      this.itemListService.updateCourse(this.changingCourse)
-        .subscribe(() => {
-          this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE)
-        });
+      this.itemListService.updateCourse(this.changingCourse);
 
       this.router.navigate(['home/courses']);
     } else {

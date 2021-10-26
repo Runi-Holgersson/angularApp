@@ -27,7 +27,9 @@ export class MainComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.courseItem = this.orderByPipe.transform(this.itemListService.getDatabaseList(0, ITEMS_IN_PAGE));
+    this.courseItem = this.orderByPipe
+      .transform(this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1),
+        ITEMS_IN_PAGE));
   }
 
   ngDoCheck() {
