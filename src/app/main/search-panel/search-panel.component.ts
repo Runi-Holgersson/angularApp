@@ -16,11 +16,11 @@ export class SearchPanelComponent {
 
   filterHandler(value: string) {
     this.titleFind.emit(value);
+    this.inputValue = "";
   }
 
   addCourseClicked() {
     this.itemListService.isAddNewCourseOn = true;
     this.router.navigate(['home/courses/new']);
-    // this.courseRedactorService.isRedactorOn = true;
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Output, OnInit, DoCheck} from '@angular/core';
+import {Component, Output, Input, OnInit, DoCheck, OnChanges, AfterContentChecked, AfterViewInit} from '@angular/core';
 import {CourseContent} from "../common/interfaces/interfaces";
 import {SearchFilterPipe} from "../common/pipes/search-filter.pipe";
 import {OrderByPipe} from "../common/pipes/order-by.pipe";
@@ -20,10 +20,6 @@ export class MainComponent implements OnInit, DoCheck {
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
               private orderByPipe: OrderByPipe, private router: Router, private http: HttpClient) {
-    // this.courseData = itemListService.dataList;
-    /*this.courseData.forEach(item => {
-      item.id = this.itemListService.getUniqueId();
-    });*/
   }
 
   onSearch(event: string) {
@@ -35,9 +31,11 @@ export class MainComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (this.searchData === "") {
+    if (this.searchData !== "") {
+      this.courseItem = this.orderByPipe.transform(this.itemListService.searchCourse(this.searchData));
+      this.searchData = "";
+    } else {
       this.courseItem = this.orderByPipe.transform(this.itemListService.dataList);
     }
-    this.courseItem = this.orderByPipe.transform(this.searchFilterPipe.transform(this.itemListService.dataList, this.searchData));
   }
 }

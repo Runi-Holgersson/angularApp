@@ -49,7 +49,16 @@ export class ItemListService {
     );
     // this.dataList.push(course);
   }
-
+  searchCourse(textFragment: string): CourseContent[]{
+    this.http.get<CourseContent[]>('http://localhost:3004/courses', {
+      params: new HttpParams()
+        .set('textFragment', textFragment)
+    })
+      .subscribe((data) => {
+        this.dataList = data;
+      });
+    return this.dataList;
+  }
 // use find
   setItemById(id: number): void {
     this.dataList.forEach((item) => {
