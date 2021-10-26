@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
 import {ITEMS_IN_PAGE, MOCKUP_COURSE_ITEM} from "../constants/constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,6 @@ export class ItemListService {
     this.http.post(`http://localhost:3004/courses`, course).subscribe(
       () => {
         this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
-        console.log(course.id);
       }
     );
     // this.dataList.push(course);

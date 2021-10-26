@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
+import {UserInfo} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,13 @@ export class AuthorizationService {
 
 
   getUserInfo() {
-    this.http.post('http://localhost:3004/auth/userinfo', {}, {
+    this.http.post<UserInfo>('http://localhost:3004/auth/userinfo', {}, {
       headers: new HttpHeaders({
         'Authorization': `${localStorage.getItem('token')}`
       })
     })
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        this.userFullName = `${data.name.first} ${data.name.last}`;
+      });
   }
 }

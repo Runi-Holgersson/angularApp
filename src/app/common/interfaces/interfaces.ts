@@ -32,3 +32,13 @@ export interface Page {
   number: number,
   isActivated: boolean
 }
+export interface UserInfo {
+  "id": number,
+  "fakeToken": string,
+  "name": {
+    "first": string,
+    "last": string,
+  },
+  "login": string,
+  "password": string
+}
