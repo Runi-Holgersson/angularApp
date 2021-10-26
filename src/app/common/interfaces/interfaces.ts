@@ -6,3 +6,7 @@ export interface CourseContent {
   topRated?: boolean,
   id: number
 }
+export interface LocalStorage {
+  "login": string,
+  "password": string
+}

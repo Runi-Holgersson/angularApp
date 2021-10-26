@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
 import {MOCKUP_COURSE_LIST, MOCKUP_COURSE_ITEM} from "../constants/constants";
 
@@ -6,42 +6,55 @@ import {MOCKUP_COURSE_LIST, MOCKUP_COURSE_ITEM} from "../constants/constants";
   providedIn: 'root'
 })
 export class ItemListService {
-  public indexOfId: number = 0;
-  public dataList: CourseContent[] = [];
-  @Input() public courseItem: CourseContent = MOCKUP_COURSE_ITEM;
+  private _indexOfId: number = 0;
+  private _dataList: CourseContent[] = [];
+  private _courseItem: CourseContent = MOCKUP_COURSE_ITEM;
+  public idCollection: number[] = [];
 
   constructor() {
-    this.dataList = MOCKUP_COURSE_LIST;
+    this._dataList = MOCKUP_COURSE_LIST;
   }
 
-  getDataList(): CourseContent[] {
-    return this.dataList;
+  set dataList(dataList: CourseContent[]) {
+    this._dataList = dataList;
   }
 
-  createCourse(course:CourseContent): void {
+  get dataList(): CourseContent[] {
+    return this._dataList;
+  }
+
+  createCourse(course: CourseContent): void {
     this.dataList.push(course);
   }
 
-  getItemById(id: number): void {
+// use find
+  setItemById(id: number): void {
     this.dataList.forEach((item) => {
       if (item.id === id) {
-        this.courseItem = item;
+        this._courseItem = item;
       }
     });
   }
 
-  getIndexById(id: number): void {
+  get courseItem(): CourseContent {
+    return this._courseItem;
+  }
+
+  get indexOfId(): number {
+    return this._indexOfId;
+  }
+
+  setIndexById(id: number): void {
     this.dataList.forEach((item, index) => {
       if (item.id === id) {
-        this.indexOfId = index;
+        this._indexOfId = index;
       }
     })
   }
 
 
   removeItem(id: number): void {
-    this.getIndexById(id);
-    console.log(this.indexOfId);
+    this.setIndexById(id);
     if (confirm("Do you really want to delete this course? Yes/No")) {
       this.dataList.splice(this.indexOfId, 1);
     }
@@ -52,5 +65,14 @@ export class ItemListService {
     this.dataList[index].date = item.date;
     this.dataList[index].description = item.description;
     this.dataList[index].duration = item.duration;
+  }
+
+  getUniqueId(): number {
+    let currentRandomId: number = Math.floor(Math.random() * 1000);
+    while (this.idCollection.includes(currentRandomId)) {
+      currentRandomId = Math.floor(Math.random() * 1000);
+    }
+    this.idCollection.push(currentRandomId);
+    return currentRandomId;
   }
 }
