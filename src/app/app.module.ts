@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
+import {NgModule, Provider} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import {AppComponent} from './app.component';
 import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
@@ -31,6 +31,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from '@angular/material/input';
 import { PagingComponent } from './main/loader/paging/paging.component';
 import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.component";
+import {AuthInterceptor} from "./auth.interceptor";
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true
+}
 
 @NgModule({
   declarations: [
@@ -67,7 +74,7 @@ import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.
     MatButtonModule,
     MatInputModule
   ],
-  providers: [LoginPageService, AuthorizationService],
+  providers: [LoginPageService, AuthorizationService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule {
