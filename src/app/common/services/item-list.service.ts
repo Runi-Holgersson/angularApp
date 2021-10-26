@@ -104,6 +104,10 @@ export class ItemListService {
   }
 
   getUniqueId(): number {
+    this.http.get<CourseContent[]>('http://localhost:3004/courses')
+      .subscribe(data => {
+        data.forEach(course => this.idCollection.push(course.id));
+      });
     let currentRandomId: number = Math.floor(Math.random() * 1000);
     while (this.idCollection.includes(currentRandomId)) {
       currentRandomId = Math.floor(Math.random() * 1000);
