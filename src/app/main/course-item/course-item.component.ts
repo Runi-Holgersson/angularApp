@@ -47,8 +47,8 @@ export class CourseItemComponent implements OnInit {
     if (event === "Delete") {
       this.http.delete<void>(`http://localhost:3004/courses/${this.id}`)
         .subscribe(() =>{
-            this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE)
-            console.log(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1));
+            this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE);
+            this.itemListService.getAmountOfPages();
         }
         );
     }

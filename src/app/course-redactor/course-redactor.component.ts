@@ -70,8 +70,10 @@ export class CourseRedactorComponent implements DoCheck {
     } else {
       this.changingCourse.id = this.itemListService.getUniqueId();
       this.itemListService.createCourse(this.changingCourse);
+
       this.itemListService.isAddNewCourseOn = false;
       this.router.navigate(['home/courses']);
+      this.itemListService.pagesArray = [];
     }
   }
 

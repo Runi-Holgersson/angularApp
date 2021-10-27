@@ -15,7 +15,7 @@ export class ItemListService {
   public currentUrl: string = '';
   public isAddNewCourseOn: boolean = false;
   public currentPage: number = 1;
-  public isPageButtonsNotActive: boolean = false;
+  public pagesArray: number[] = [];
 
 
   constructor(private http: HttpClient) {
@@ -28,6 +28,17 @@ export class ItemListService {
   get dataList(): CourseContent[] {
     return this._dataList;
   }
+
+  getAmountOfPages(): number[] {
+    this.pagesArray = [];
+    this.http.get<CourseContent[]>('http://localhost:3004/courses')
+      .subscribe(data => {
+        for (let i = 1; i <= Math.ceil(data.length / ITEMS_IN_PAGE); i++) {
+          this.pagesArray.push(i);
+        }
+      });
+    return this.pagesArray;
+  };
 
   getDatabaseList(start: number, count: number): CourseContent[] {
     this.http.get<CourseContent[]>('http://localhost:3004/courses', {
@@ -47,7 +58,6 @@ export class ItemListService {
         this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
       }
     );
-    // this.dataList.push(course);
   }
 
   searchCourse(textFragment: string): CourseContent[] {
