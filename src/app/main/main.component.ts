@@ -15,11 +15,10 @@ import {ITEMS_IN_PAGE} from "../common/constants/constants";
 })
 export class MainComponent implements OnInit, DoCheck {
   @Output() public courseItem: CourseContent[] = [];
-  // public courseData: CourseContent[] = [];
   public searchData: string = "";
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
-              private orderByPipe: OrderByPipe, private router: Router, private http: HttpClient) {
+              private orderByPipe: OrderByPipe) {
   }
 
   onSearch(event: string) {
