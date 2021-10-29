@@ -23,4 +23,7 @@ export class SearchPanelComponent {
     this.itemListService.isAddNewCourseOn = true;
     this.router.navigate(['home/courses/new']);
   }
+  valueChanged(event:any){
+    console.log(`value changed ${event.value}`);
+  }
 }
