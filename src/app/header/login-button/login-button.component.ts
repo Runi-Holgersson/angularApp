@@ -13,8 +13,6 @@ import {takeWhile} from "rxjs/operators";
   styleUrls: ['./login-button.component.sass']
 })
 export class LoginButtonComponent {
-  public userName: string | null = "Sign in";
-
   constructor(public authorizationService: AuthorizationService, private router: Router) {
   }
 
