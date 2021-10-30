@@ -5,7 +5,7 @@
     <div><span>ANGULAR COURSES</span></div>
   </div>
   <div class="btn-container">
-    <div class="user-info"></div>
+    <app-user-info *ngIf = this.authService.isAuthenticated()></app-user-info>
     <app-login-button></app-login-button>
     <app-logout-button></app-logout-button>
   </div>

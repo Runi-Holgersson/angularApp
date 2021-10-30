@@ -32,6 +32,7 @@ import {MatInputModule} from '@angular/material/input';
 import { PagingComponent } from './main/loader/paging/paging.component';
 import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.component";
 import {AuthInterceptor} from "./auth.interceptor";
+import { UserInfoComponent } from './header/user-info/user-info.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -61,7 +62,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HomePageComponent,
     ErrorPageComponent,
     PagingComponent,
-    PageButtonComponent
+    PageButtonComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

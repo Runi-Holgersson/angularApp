@@ -12,37 +12,14 @@ import {takeWhile} from "rxjs/operators";
   templateUrl: './login-button.component.html',
   styleUrls: ['./login-button.component.sass']
 })
-export class LoginButtonComponent implements OnDestroy {
+export class LoginButtonComponent {
   public userName: string | null = "Sign in";
-  public userInfo: Subscription;
 
   constructor(public authorizationService: AuthorizationService, private router: Router) {
-    this.userInfo = from(this.authorizationService.getUserInfo())
-      .pipe(
-        // takeWhile(this.authorizationService.isAuthenticated)
-      )
-      .subscribe(data => {
-        this.userName = `${data.name.first} ${data.name.last}`;
-      });
   }
 
   goToLoginPage() {
+    this.authorizationService.logOut();
     this.router.navigate(["/home/login-page"])
-  }
-
-  /*ngDoCheck() {
-      if (this.authorizationService.isAuthenticated()) {
-        from(this.authorizationService.getUserInfo())
-          .subscribe(data => {
-            this.userName = `${data.name.first} ${data.name.last}`;
-          });
-        // this.userName = this.authorizationService.userFullName;
-      } else {
-        this.userName = "Sign in";
-      }
-    }*/
-  ngOnDestroy() {
-    this.userInfo.unsubscribe();
-    this.userName = 'Sign in';
   }
 }
