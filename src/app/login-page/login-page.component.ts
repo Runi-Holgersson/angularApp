@@ -28,6 +28,10 @@ export class LoginPageComponent {
         this.authorizationService.logIn(data.token);
         this.router.navigate(['/home/courses']);
         this.authorizationService.getUserInfo();
+        this.authorizationService.error = '';
+      }, error => {
+        console.log(error.message);
+        this.authorizationService.error = error.statusText;
       });
   }
 }

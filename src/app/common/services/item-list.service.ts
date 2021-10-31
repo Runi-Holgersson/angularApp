@@ -43,7 +43,7 @@ export class ItemListService {
   };
 
   getDatabaseList(start: number, count: number): CourseContent[] {
-    this.loadingService.loading = true;
+    setTimeout(() => this.loadingService.loading = true, 0);
     this.http.get<CourseContent[]>('http://localhost:3004/courses', {
       params: new HttpParams()
         .set('start', start.toString())
@@ -71,7 +71,7 @@ export class ItemListService {
       params: new HttpParams()
         .set('textFragment', textFragment)
     })
-      .pipe(delay(1000))
+      .pipe(delay(1500))
       .subscribe((data) => {
         this.dataList = data;
         this.loadingService.loading = false;

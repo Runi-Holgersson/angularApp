@@ -2,10 +2,6 @@
   <div class="container">
     <app-header></app-header>
     <app-breadcrumps [currentUrl]="currentUrl"></app-breadcrumps>
-    <!-- <app-home-page></app-home-page>
-    <app-course-redactor *ngIf="courseRedactorService.isRedactorOn"></app-course-redactor>
-    <app-login-page *ngIf="loginPageService.isLoginPageOn"></app-login-page>
-    <app-content *ngIf="!loginPageService.isLoginPageOn && !courseRedactorService.isRedactorOn"></app-content> -->
     <router-outlet></router-outlet>
     <app-footer></app-footer>
     <app-loading-overlay *ngIf = this.loadingService.loading></app-loading-overlay>

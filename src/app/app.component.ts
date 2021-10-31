@@ -1,4 +1,4 @@
-import {Component, DoCheck} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {LoadingService} from "./loading-overlay/loading.service";
 
@@ -8,11 +8,13 @@ import {LoadingService} from "./loading-overlay/loading.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements DoCheck{
+export class AppComponent implements DoCheck {
   public currentUrl: string = '';
+
   constructor(private router: Router, public loadingService: LoadingService) {
   }
-  ngDoCheck(){
+
+  ngDoCheck() {
     this.currentUrl = this.router.url;
   }
 }

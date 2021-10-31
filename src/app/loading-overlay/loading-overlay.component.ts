@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LoadingService} from "./loading.service";
 
 @Component({
   selector: 'app-loading-overlay',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingOverlayComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loadingService: LoadingService) {
+    this.loadingService.loading = true;
+  }
 
   ngOnInit(): void {
   }
