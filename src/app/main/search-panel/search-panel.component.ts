@@ -15,8 +15,6 @@ import {SearchPanelService} from "./search-panel.service";
 export class SearchPanelComponent implements OnDestroy {
   public inputValue: string = "";
   @Output() titleFind = new EventEmitter<string>();
-  // @ViewChild('searchInput', {static: true}) searchInput: ElementRef = null;
-  // public source$ = fromEvent(this.searchInput.nativeElement, 'keyup');
 
   public subscription: Subscription;
 
@@ -26,14 +24,7 @@ export class SearchPanelComponent implements OnDestroy {
       .subscribe(res => {
         this.itemListService.searchCourse(res);
         this.inputValue = '';
-        console.log(res)
       });
-  }
-
-
-  filterHandler(value: string) {
-    this.titleFind.emit(value);
-    this.inputValue = "";
   }
 
   addCourseClicked() {
@@ -43,7 +34,6 @@ export class SearchPanelComponent implements OnDestroy {
 
   valueChanged(event: any) {
     this.searchService.subject.next(event.value);
-    console.log(`value changed ${event.value}`);
   }
 
   ngOnDestroy() {

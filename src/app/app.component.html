@@ -8,5 +8,6 @@
     <app-content *ngIf="!loginPageService.isLoginPageOn && !courseRedactorService.isRedactorOn"></app-content> -->
     <router-outlet></router-outlet>
     <app-footer></app-footer>
+    <app-loading-overlay *ngIf = this.loadingService.loading></app-loading-overlay>
   </div>
 </div>

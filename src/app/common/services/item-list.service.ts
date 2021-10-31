@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {CourseContent} from "../interfaces/interfaces";
 import {ITEMS_IN_PAGE, MOCKUP_COURSE_ITEM} from "../constants/constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {LoadingService} from "../../loading-overlay/loading.service";
+import {delay} from "rxjs/operators";
 
 
 @Injectable({
@@ -18,7 +20,7 @@ export class ItemListService {
   public pagesArray: number[] = [];
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingService: LoadingService) {
   }
 
   set dataList(dataList: CourseContent[]) {
@@ -41,13 +43,16 @@ export class ItemListService {
   };
 
   getDatabaseList(start: number, count: number): CourseContent[] {
+    this.loadingService.loading = true;
     this.http.get<CourseContent[]>('http://localhost:3004/courses', {
       params: new HttpParams()
         .set('start', start.toString())
         .set('count', count.toString())
     })
+      .pipe(delay(1500))
       .subscribe((data) => {
         this.dataList = data;
+        this.loadingService.loading = false;
       });
     return this.dataList;
   }
@@ -61,12 +66,15 @@ export class ItemListService {
   }
 
   searchCourse(textFragment: string): CourseContent[] {
+    this.loadingService.loading = true;
     this.http.get<CourseContent[]>('http://localhost:3004/courses', {
       params: new HttpParams()
         .set('textFragment', textFragment)
     })
+      .pipe(delay(1000))
       .subscribe((data) => {
         this.dataList = data;
+        this.loadingService.loading = false;
       });
     return this.dataList;
   }

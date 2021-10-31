@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {User, Token} from "../common/interfaces/interfaces";
 import {Observable} from "rxjs";
+import {LoadingService} from "../loading-overlay/loading.service";
 
 @Component({
   selector: 'app-login-page',
@@ -16,8 +17,9 @@ export class LoginPageComponent {
     login: '',
     password: ''
   };
-  constructor(public authorizationService: AuthorizationService, public loginPageService: LoginPageService,
-              private router: Router, private http: HttpClient) {
+
+  constructor(public authorizationService: AuthorizationService, private router: Router,
+              private http: HttpClient) {
   }
 
   submitted() {

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {UserInfo} from "../interfaces/interfaces";
 import {Observable} from "rxjs";
+import {LoadingService} from "../../loading-overlay/loading.service";
 
 
 @Injectable({
