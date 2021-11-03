@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {ItemListService} from "../../common/services/item-list.service";
+import {ITEMS_IN_PAGE} from "../../common/constants/constants";
 
 @Component({
   selector: 'app-loader',
@@ -7,7 +8,7 @@ import {ItemListService} from "../../common/services/item-list.service";
   styleUrls: ['./loader.component.sass']
 })
 export class LoaderComponent implements OnChanges {
-  public emptyPage: boolean = false;
+
   @Input() public courseItemsCount: number = 0;
 
   constructor(public itemListService: ItemListService) {
@@ -15,7 +16,8 @@ export class LoaderComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.courseItemsCount === 0) {
-      this.courseItemsCount = this.itemListService.getAmountOfCourses();
+      this.itemListService.currentPage--;
+      this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE);
     }
   }
 }

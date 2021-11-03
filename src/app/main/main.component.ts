@@ -19,6 +19,7 @@ export class MainComponent implements OnInit, DoCheck {
 
   constructor(public itemListService: ItemListService, private searchFilterPipe: SearchFilterPipe,
               private orderByPipe: OrderByPipe) {
+    this.itemListService.currentPage = 1;
   }
 
   onSearch(event: string) {
