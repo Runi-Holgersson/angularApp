@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {UserInfo} from "../interfaces/interfaces";
 import {Observable} from "rxjs";
+import {STORAGE_KEYS, DOMAIN_NAME} from "../constants/constants";
 
 
 @Injectable({
@@ -10,27 +11,28 @@ import {Observable} from "rxjs";
 })
 export class AuthorizationService {
   public error: string = '';
+  public userInfoUrl: string = `${DOMAIN_NAME}/auth/userinfo`
 
   constructor(private http: HttpClient) {
   }
 
   logIn(token: string): void {
-    localStorage.setItem("token", token);
+    localStorage.setItem(STORAGE_KEYS.token, token);
   }
 
   logOut(): void {
-    localStorage.setItem("token", '');
+    localStorage.setItem(STORAGE_KEYS.token, '');
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem(STORAGE_KEYS.token);
   }
 
 
   getUserInfo(): Observable<UserInfo> {
-   return this.http.post<UserInfo>('http://localhost:3004/auth/userinfo', {}, {
+   return this.http.post<UserInfo>(this.userInfoUrl, {}, {
       headers: new HttpHeaders({
-        'Authorization': `${localStorage.getItem('token')}`
+        'Authorization': `${localStorage.getItem(STORAGE_KEYS.token)}`
       })
     })
   }
