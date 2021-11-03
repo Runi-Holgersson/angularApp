@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
-import {CourseContent} from "../interfaces/interfaces";
+import {CourseContent} from "../interfaces/course-content.interface";
 import {ITEMS_IN_PAGE, MOCKUP_COURSE_ITEM} from "../constants/constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {LoadingService} from "../../loading-overlay/loading.service";
+import {delay} from "rxjs/operators";
+import {DOMAIN_NAME} from "../constants/constants";
 
 
 @Injectable({
@@ -16,9 +19,11 @@ export class ItemListService {
   public isAddNewCourseOn: boolean = false;
   public currentPage: number = 1;
   public pagesArray: number[] = [];
+  public coursesListUrl: string = `${DOMAIN_NAME}/courses`;
+  public amountOfCourses: number = 0;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingService: LoadingService) {
   }
 
   set dataList(dataList: CourseContent[]) {
@@ -31,7 +36,7 @@ export class ItemListService {
 
   getAmountOfPages(): number[] {
     this.pagesArray = [];
-    this.http.get<CourseContent[]>('http://localhost:3004/courses')
+    this.http.get<CourseContent[]>(this.coursesListUrl)
       .subscribe(data => {
         for (let i = 1; i <= Math.ceil(data.length / ITEMS_IN_PAGE); i++) {
           this.pagesArray.push(i);
@@ -40,20 +45,29 @@ export class ItemListService {
     return this.pagesArray;
   };
 
+  getAmountOfCourses(): number {
+    this.http.get<CourseContent[]>(this.coursesListUrl)
+      .subscribe(data => this.amountOfCourses = data.length);
+    return this.amountOfCourses;
+  }
+
   getDatabaseList(start: number, count: number): CourseContent[] {
-    this.http.get<CourseContent[]>('http://localhost:3004/courses', {
+    setTimeout(() => this.loadingService.loading = true, 0);
+    this.http.get<CourseContent[]>(this.coursesListUrl, {
       params: new HttpParams()
         .set('start', start.toString())
         .set('count', count.toString())
     })
+      .pipe(delay(1500))
       .subscribe((data) => {
         this.dataList = data;
+        this.loadingService.loading = false;
       });
     return this.dataList;
   }
 
   createCourse(course: CourseContent): void {
-    this.http.post(`http://localhost:3004/courses`, course).subscribe(
+    this.http.post(this.coursesListUrl, course).subscribe(
       () => {
         this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
       }
@@ -61,12 +75,15 @@ export class ItemListService {
   }
 
   searchCourse(textFragment: string): CourseContent[] {
-    this.http.get<CourseContent[]>('http://localhost:3004/courses', {
+    this.loadingService.loading = true;
+    this.http.get<CourseContent[]>(this.coursesListUrl, {
       params: new HttpParams()
         .set('textFragment', textFragment)
     })
+      .pipe(delay(1500))
       .subscribe((data) => {
         this.dataList = data;
+        this.loadingService.loading = false;
       });
     return this.dataList;
   }
@@ -96,16 +113,19 @@ export class ItemListService {
     })
   }
 
-
-  removeItem(id: number): void {
-    this.setIndexById(id);
+  deleteCourse(id: number): void {
     if (confirm("Do you really want to delete this course? Yes/No")) {
-      this.dataList.splice(this.indexOfId, 1);
+      this.http.delete<void>(`${this.coursesListUrl}/${id}`)
+        .subscribe(() => {
+            this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
+            this.getAmountOfPages();
+          }
+        );
     }
   }
 
   updateCourse(item: CourseContent): void {
-    this.http.put<CourseContent>(`http://localhost:3004/courses/${item.id}`, item)
+    this.http.put<CourseContent>(`${this.coursesListUrl}/${item.id}`, item)
       .subscribe(() => {
         this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1),
           ITEMS_IN_PAGE)
@@ -113,7 +133,7 @@ export class ItemListService {
   }
 
   getUniqueId(): number {
-    this.http.get<CourseContent[]>('http://localhost:3004/courses')
+    this.http.get<CourseContent[]>(this.coursesListUrl)
       .subscribe(data => {
         data.forEach(course => this.idCollection.push(course.id));
       });

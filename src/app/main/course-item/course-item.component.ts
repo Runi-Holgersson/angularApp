@@ -4,7 +4,7 @@ import {DurationPipe} from "../../common/pipes/duration.pipe";
 import {ItemListService} from "../../common/services/item-list.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {CourseContent} from "../../common/interfaces/interfaces";
+import {CourseContent} from "../../common/interfaces/course-content.interface";
 import {ITEMS_IN_PAGE} from "../../common/constants/constants";
 
 @Component({
@@ -45,12 +45,7 @@ export class CourseItemComponent implements OnInit {
       this.itemListService.isAddNewCourseOn = false;
     }
     if (event === "Delete") {
-      this.http.delete<void>(`http://localhost:3004/courses/${this.id}`)
-        .subscribe(() =>{
-            this.itemListService.getDatabaseList(ITEMS_IN_PAGE * (this.itemListService.currentPage - 1), ITEMS_IN_PAGE);
-            this.itemListService.getAmountOfPages();
-        }
-        );
+      this.itemListService.deleteCourse(this.id);
     }
   }
 }

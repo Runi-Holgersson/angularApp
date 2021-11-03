@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {CourseContent} from "../interfaces/interfaces";
+import {CourseContent} from "../interfaces/course-content.interface";
 
 @Pipe({
   name: 'searchFilter'

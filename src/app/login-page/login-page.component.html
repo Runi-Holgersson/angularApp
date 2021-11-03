@@ -1,4 +1,5 @@
   <div class="login-container" id="login">
+    <p class="mat-error" *ngIf = this.authorizationService.error >Error: {{this.authorizationService.error}}</p>
     <div>Login *Required</div>
     <input type="text" [(ngModel)]="user.login">
     <div>Password *Required</div>

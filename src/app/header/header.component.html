@@ -7,5 +7,6 @@
   <div class="btn-container">
     <app-login-button></app-login-button>
     <app-logout-button></app-logout-button>
+    <app-user-info *ngIf = this.authService.isAuthenticated()></app-user-info>
   </div>
 </div>

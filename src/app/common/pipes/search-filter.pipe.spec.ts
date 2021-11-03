@@ -1,5 +1,5 @@
 import { SearchFilterPipe } from './search-filter.pipe';
-import {CourseContent} from "../interfaces/interfaces";
+import {CourseContent} from "../interfaces/course-content.interface";
 
 describe('SearchFilterPipe', () => {
   let pipe: SearchFilterPipe;

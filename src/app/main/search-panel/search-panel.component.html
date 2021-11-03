@@ -1,9 +1,8 @@
 <div class="search-field-wrapper">
   <mat-form-field>
     <mat-label>Search</mat-label>
-    <input matInput [(ngModel)]="inputValue">
+    <input matInput (input)="valueChanged($event.target)" [(ngModel)]="inputValue">
   </mat-form-field>
-  <button mat-raised-button class="search" (click)="filterHandler(inputValue)">..Search {{inputValue}}</button>
 </div>
 <button mat-raised-button class="add" (click)="addCourseClicked()">Add course</button>
 
