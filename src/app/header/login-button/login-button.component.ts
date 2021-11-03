@@ -4,8 +4,8 @@ import {AuthorizationService} from "../../common/services/authorization.service"
 import {Router} from "@angular/router";
 import {fromPromise} from "rxjs/internal-compatibility";
 import {from, Observable, Subscription} from "rxjs";
-import {UserInfo} from "../../common/interfaces/interfaces";
 import {takeWhile} from "rxjs/operators";
+import {UserInfo} from "../../common/interfaces/user-info.interface";
 
 @Component({
   selector: 'app-login-button',

@@ -1,5 +1,5 @@
-import {CourseContent} from "../interfaces/interfaces";
-import {Token} from "../interfaces/interfaces";
+import {CourseContent} from "../interfaces/course-content.interface";
+import {Token} from "../interfaces/token.interface";
 
 export const MILLISECOND_IN_DAY: number = 1000 * 60 * 60 * 24;
 export const MINUTES_IN_HOUR: number = 60;

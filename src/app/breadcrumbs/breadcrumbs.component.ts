@@ -1,7 +1,7 @@
 import {Component, DoCheck, Input, OnChanges, OnInit} from '@angular/core';
-import {BreadCrumb} from "../common/interfaces/interfaces";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemListService} from "../common/services/item-list.service";
+import {BreadCrumb} from "../common/interfaces/breadcrumb.interface";
 
 
 @Component({

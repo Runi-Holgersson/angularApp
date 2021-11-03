@@ -1,5 +1,5 @@
 import {Component, Output, Input, OnInit, DoCheck, OnChanges, AfterContentChecked, AfterViewInit} from '@angular/core';
-import {CourseContent} from "../common/interfaces/interfaces";
+import {CourseContent} from "../common/interfaces/course-content.interface";
 import {SearchFilterPipe} from "../common/pipes/search-filter.pipe";
 import {OrderByPipe} from "../common/pipes/order-by.pipe";
 import {ItemListService} from "../common/services/item-list.service";

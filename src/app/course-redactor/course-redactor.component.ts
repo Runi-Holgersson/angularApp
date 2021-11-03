@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
-import {CourseContent, Author} from "../common/interfaces/interfaces";
+import {CourseContent} from "../common/interfaces/course-content.interface";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ITEMS_IN_PAGE} from "../common/constants/constants";
+import {Author} from "../common/interfaces/author.interface";
 
 @Component({
   selector: 'app-course-redactor',

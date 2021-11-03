@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CourseContent} from "../interfaces/interfaces";
+import {CourseContent} from "../interfaces/course-content.interface";
 import {ITEMS_IN_PAGE, MOCKUP_COURSE_ITEM} from "../constants/constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {LoadingService} from "../../loading-overlay/loading.service";

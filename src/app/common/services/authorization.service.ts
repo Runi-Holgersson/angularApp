@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
-import {UserInfo} from "../interfaces/interfaces";
 import {Observable} from "rxjs";
 import {STORAGE_KEYS, DOMAIN_NAME} from "../constants/constants";
+import {UserInfo} from "../interfaces/user-info.interface";
 
 
 @Injectable({
