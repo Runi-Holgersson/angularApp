@@ -20,6 +20,7 @@ export class ItemListService {
   public currentPage: number = 1;
   public pagesArray: number[] = [];
   public coursesListUrl: string = `${DOMAIN_NAME}/courses`;
+  public amountOfCourses: number = 0;
 
 
   constructor(private http: HttpClient, private loadingService: LoadingService) {
@@ -43,6 +44,12 @@ export class ItemListService {
       });
     return this.pagesArray;
   };
+
+  getAmountOfCourses(): number {
+    this.http.get<CourseContent[]>(this.coursesListUrl)
+      .subscribe(data => this.amountOfCourses = data.length);
+    return this.amountOfCourses;
+  }
 
   getDatabaseList(start: number, count: number): CourseContent[] {
     setTimeout(() => this.loadingService.loading = true, 0);
@@ -106,20 +113,15 @@ export class ItemListService {
     })
   }
 
-/*removeItem(id: number): void {
-    this.setIndexById(id);
-    if (confirm("Do you really want to delete this course? Yes/No")) {
-      this.dataList.splice(this.indexOfId, 1);
-    }
-  }*/
-
   deleteCourse(id: number): void {
-    this.http.delete<void>(`${this.coursesListUrl}/${id}`)
-      .subscribe(() => {
-          this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
-          this.getAmountOfPages();
-        }
-      );
+    if (confirm("Do you really want to delete this course? Yes/No")) {
+      this.http.delete<void>(`${this.coursesListUrl}/${id}`)
+        .subscribe(() => {
+            this.getDatabaseList(ITEMS_IN_PAGE * (this.currentPage - 1), ITEMS_IN_PAGE);
+            this.getAmountOfPages();
+          }
+        );
+    }
   }
 
   updateCourse(item: CourseContent): void {

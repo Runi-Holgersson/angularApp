@@ -1,3 +1,4 @@
+<p *ngIf = emptyPage class = "mat-error">No data on this page</p>
 <app-paging *ngIf="!!courseItemsCount; else noData"></app-paging>
 <ng-template #noData><p>No data. Feel free to add new course</p></ng-template>
 
