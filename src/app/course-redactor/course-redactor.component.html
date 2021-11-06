@@ -1,17 +1,34 @@
 <div class="redactor-container">
-  <div>Course title</div>
-  <input type="text" [(ngModel)]="name" placeholder="{{changingCourse.name}}">
-  <div>Course duration(in minutes)</div>
-  <input type="text" [(ngModel)]="length" placeholder="{{changingCourse.length}}">
-  <div>Date of creation</div>
-  <input type="text" [(ngModel)]="date" placeholder="{{changingCourse.date}}">
-  <div>Description</div>
-  <input type="text" [(ngModel)]="description" placeholder="{{changingCourse.description}}">
-  <div>Authors</div>
-  <input type="text" [(ngModel)]="authors" placeholder="{{changingCourse.authors}}">
-  <div>Is top-rated</div>
-  <input type="checkbox" [checked]="checkboxStatus" (change)="changeCheckbox()">
-  <button (click)="saved()">{{buttonName}}</button>
-  <button (click)="cancelled()">Cancel</button>
+  <form action="" [formGroup]="form" (ngSubmit)="saved()">
+    <mat-form-field>
+      <mat-label>Course title</mat-label>
+      <input matInput type="text" placeholder="{{changingCourse.name}}" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Course duration(in minutes)</mat-label>
+      <input matInput type="text" formControlName="length" placeholder="{{changingCourse.length}}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date of creation</mat-label>
+      <input matInput type="text" formControlName="date" placeholder="{{changingCourse.date}}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput type="text" formControlName="description" placeholder="{{changingCourse.description}}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Authors</mat-label>
+      <input matInput type="text" formControlName="authors" placeholder="{{changingCourse.authors}}">
+    </mat-form-field>
+    <div>
+      <mat-checkbox [color]="palette" [checked]="!!checkboxStatus" (change)="changeCheckbox()">Is top-rated
+      </mat-checkbox>
+    </div>
+    <div class="button-container">
+      <button mat-raised-button type="submit">{{buttonName}}</button>
+      <button mat-raised-button type="button" (click)="cancelled()">Cancel</button>
+    </div>
+  </form>
+
 </div>
 

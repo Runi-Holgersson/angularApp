@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {LoadingService} from "../loading-overlay/loading.service";
 import {User} from "../common/interfaces/user.interface";
 import {Token} from "../common/interfaces/token.interface";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-login-page',
@@ -14,17 +15,18 @@ import {Token} from "../common/interfaces/token.interface";
   styleUrls: ['./login-page.component.sass']
 })
 export class LoginPageComponent {
-  public user: User = {
-    login: '',
-    password: ''
-  };
+  public form: FormGroup;
 
   constructor(public authorizationService: AuthorizationService, private router: Router,
               private http: HttpClient) {
+    this.form = new FormGroup({
+      login: new FormControl(''),
+      password: new FormControl('')
+    })
   }
 
   submitted() {
-    this.http.post<Token>('http://localhost:3004/auth/login', this.user)
+    this.http.post<Token>('http://localhost:3004/auth/login', this.form.value)
       .subscribe(data => {
         this.authorizationService.logIn(data.token);
         this.router.navigate(['/home/courses']);

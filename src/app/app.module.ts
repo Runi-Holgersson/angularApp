@@ -35,6 +35,8 @@ import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.
 import {AuthInterceptor} from "./auth.interceptor";
 import {UserInfoComponent} from './header/user-info/user-info.component';
 import {LoadingOverlayComponent} from './loading-overlay/loading-overlay.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -78,7 +80,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
   ],
   providers: [LoginPageService, AuthorizationService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

@@ -1,9 +1,15 @@
-  <div class="login-container" id="login">
-    <p class="mat-error" *ngIf = this.authorizationService.error >Error: {{this.authorizationService.error}}</p>
-    <div>Login *Required</div>
-    <input type="text" [(ngModel)]="user.login">
-    <div>Password *Required</div>
-    <input type="text" [(ngModel)]="user.password">
-    <button (click)="submitted()">Submit</button>
-  </div>
+<div class="login-container" id="login">
+  <p class="mat-error" *ngIf=this.authorizationService.error>Error: {{this.authorizationService.error}}</p>
+  <form action="" [formGroup]="form" (ngSubmit)="submitted()">
+    <mat-form-field>
+      <mat-label>Login *Required</mat-label>
+      <input matInput type="text" formControlName="login">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password *Required</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>
+</div>
 
