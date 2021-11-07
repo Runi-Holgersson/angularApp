@@ -8,24 +8,18 @@
       <mat-label>Course duration(in minutes)</mat-label>
       <input matInput type="text" formControlName="length" placeholder="{{changingCourse.length}}">
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Date of creation</mat-label>
-      <input matInput type="text" formControlName="date" placeholder="{{changingCourse.date}}">
-    </mat-form-field>
+    <app-date-input [parentForm]="form"></app-date-input>
     <mat-form-field>
       <mat-label>Description</mat-label>
       <input matInput type="text" formControlName="description" placeholder="{{changingCourse.description}}">
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Authors</mat-label>
-      <input matInput type="text" formControlName="authors" placeholder="{{changingCourse.authors}}">
-    </mat-form-field>
+    <app-authors-input [authorsForm]="authorsForm"></app-authors-input>
     <div>
       <mat-checkbox [color]="palette" [checked]="!!checkboxStatus" (change)="changeCheckbox()">Is top-rated
       </mat-checkbox>
     </div>
     <div class="button-container">
-      <button mat-raised-button type="submit">{{buttonName}}</button>
+      <button mat-raised-button [disabled]="form.invalid" type="submit">{{buttonName}}</button>
       <button mat-raised-button type="button" (click)="cancelled()">Cancel</button>
     </div>
   </form>

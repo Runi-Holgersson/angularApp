@@ -30,6 +30,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {PagingComponent} from './main/loader/paging/paging.component';
 import {PageButtonComponent} from "./main/loader/paging/page-button/page-button.component";
 import {AuthInterceptor} from "./auth.interceptor";
@@ -37,6 +38,8 @@ import {UserInfoComponent} from './header/user-info/user-info.component';
 import {LoadingOverlayComponent} from './loading-overlay/loading-overlay.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { DateInputComponent } from './course-redactor/date-input/date-input.component';
+import { AuthorsInputComponent } from './course-redactor/authors-input/authors-input.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -68,7 +71,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     PagingComponent,
     PageButtonComponent,
     UserInfoComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    DateInputComponent,
+    AuthorsInputComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +88,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatAutocompleteModule
   ],
   providers: [LoginPageService, AuthorizationService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

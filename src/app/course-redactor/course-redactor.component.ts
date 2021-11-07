@@ -5,8 +5,9 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ITEMS_IN_PAGE} from "../common/constants/constants";
 import {Author} from "../common/interfaces/author.interface";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
+import {AuthorsService} from "./authors-input/authors.service";
 
 @Component({
   selector: 'app-course-redactor',
@@ -15,19 +16,19 @@ import {ThemePalette} from "@angular/material/core";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRedactorComponent implements DoCheck {
- // @Input()
- // public name: string = "";
   // @Input()
- // public length: number = 0;
+  // public name: string = "";
+  // @Input()
+  // public length: number = 0;
 //  @Input()
- // public description: string = "";
- // @Input()
+  // public description: string = "";
+  // @Input()
 //  public date: string = "";
   public palette: ThemePalette;
   @Input()
   public isTopRated: boolean | undefined = false;
- // @Input()
- // public authors: Author[] = [{id: 0, firstName: '', lastName: ''}];
+  // @Input()
+  // public authors: Author[] = [{id: 0, firstName: '', lastName: ''}];
   // @Input()
   // public id: number = 0;
   public buttonName: string = "";
@@ -35,15 +36,25 @@ export class CourseRedactorComponent implements DoCheck {
   public form: FormGroup;
   changingCourse: CourseContent;
 
-  constructor(private http: HttpClient, public itemListService: ItemListService, private router: Router) {
-   this.palette = 'primary';
-    this.form = new FormGroup({
-      name: new FormControl(""),
-      description: new FormControl(""),
-      date: new FormControl(''),
-      length: new FormControl(null),
-      authors: new FormControl({})
+  constructor(private http: HttpClient, public authorsService: AuthorsService,
+              public itemListService: ItemListService, private router: Router,
+              public fb: FormBuilder) {
+    this.authorsService.setAuthorsList();
+    console.log(this.authorsService.allAuthorsList);
+    this.palette = 'primary';
+    this.form = fb.group({
+      name: ["", [Validators.required,
+        Validators.maxLength(50)]],
+      description: ["", [Validators.required,
+        Validators.maxLength(500)]],
+      date: [''],
+      length: [null, [Validators.required,
+        Validators.pattern("^[0-9]+$")]],
+      authors: this.fb.group({
+        author: ['']
+      })
     });
+
     this.changingCourse = {
       name: this.form.value.name,
       description: this.form.value.description,
@@ -54,14 +65,18 @@ export class CourseRedactorComponent implements DoCheck {
       authors: [{id: 0, firstName: '', lastName: ''}],
     }
     if (!this.itemListService.isAddNewCourseOn) {
-     // console.log(this.itemListService.courseItem);
+      // console.log(this.itemListService.courseItem);
       Object.assign(this.changingCourse, this.itemListService.courseItem);
-     // console.log(this.changingCourse);
+      // console.log(this.changingCourse);
       this.buttonName = "Update courses list";
       this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
     } else {
       this.buttonName = "Add new course";
     }
+  }
+
+  get authorsForm(){
+    return this.form.get('authors') as FormGroup;
   }
 
   changeCheckbox(): void {
@@ -79,7 +94,7 @@ export class CourseRedactorComponent implements DoCheck {
       description: this.form.value.description ? this.form.value.description : this.changingCourse.description,
       date: this.form.value.date ? this.form.value.date : this.changingCourse.date,
     });
-    console.log(this.changingCourse);
+    console.log(this.form.value);
     if (!this.itemListService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.changingCourse);
 
@@ -93,9 +108,11 @@ export class CourseRedactorComponent implements DoCheck {
       this.itemListService.pagesArray = [];
     }
   }
-  submit(){
+
+  submit() {
     console.log("Form submitted", this.form);
   }
+
   ngDoCheck() {
     this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
   }
