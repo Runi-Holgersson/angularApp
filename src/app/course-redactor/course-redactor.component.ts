@@ -8,6 +8,7 @@ import {Author} from "../common/interfaces/author.interface";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
 import {AuthorsService} from "./authors-input/authors.service";
+import {MinAuthorsAmountValidator} from "./minAuthorsAmount.validator";
 
 @Component({
   selector: 'app-course-redactor',
@@ -51,7 +52,8 @@ export class CourseRedactorComponent implements DoCheck {
       length: [null, [Validators.required,
         Validators.pattern("^[0-9]+$")]],
       authors: this.fb.group({
-        author: ['', [Validators.required, Validators.minLength(1)]]
+        author: ['', [Validators.required, Validators.minLength(1),
+          MinAuthorsAmountValidator(this.itemListService.courseItem.authors, 1)]]
       })
     });
 
