@@ -51,7 +51,7 @@ export class CourseRedactorComponent implements DoCheck {
       length: [null, [Validators.required,
         Validators.pattern("^[0-9]+$")]],
       authors: this.fb.group({
-        author: ['']
+        author: ['', [Validators.required, Validators.minLength(1)]]
       })
     });
 
