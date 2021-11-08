@@ -39,8 +39,8 @@ export class CourseRedactorComponent implements DoCheck {
   constructor(private http: HttpClient, public authorsService: AuthorsService,
               public itemListService: ItemListService, private router: Router,
               public fb: FormBuilder) {
-    this.authorsService.setAuthorsList();
-    console.log(this.authorsService.allAuthorsList);
+    this.authorsService.getAuthorsList().subscribe(data => this.authorsService.allAuthorsList = data);
+    // console.log(this.authorsService.allAuthorsList);
     this.palette = 'primary';
     this.form = fb.group({
       name: ["", [Validators.required,
@@ -93,8 +93,10 @@ export class CourseRedactorComponent implements DoCheck {
       length: this.form.value.length ? this.form.value.length : this.changingCourse.length,
       description: this.form.value.description ? this.form.value.description : this.changingCourse.description,
       date: this.form.value.date ? this.form.value.date : this.changingCourse.date,
+      authors: this.itemListService.courseItem.authors
     });
     console.log(this.form.value);
+    console.log(this.changingCourse);
     if (!this.itemListService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.changingCourse);
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Author} from "../../common/interfaces/author.interface";
 import {ItemListService} from "../../common/services/item-list.service";
 import {AuthorsService} from "./authors.service";
@@ -21,25 +21,35 @@ export class AuthorsInputComponent implements OnInit{
   @Input() public currentAuthors: Author[] = [];
   @Input() public authorsForm!: FormGroup;
 
-  constructor(public itemListService: ItemListService, public authorsService: AuthorsService) {
+  constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
+              public fb:FormBuilder) {
     this.currentAuthors = this.itemListService.courseItem.authors;
     this.allAuthorsList = this.authorsService.allAuthorsList;
     console.log(this.allAuthorsList);
-    this.authorsForm = new FormGroup({
-      author: new FormControl('')
+    this.authorsForm = fb.group({
+      author: []
     })
   }
   addAuthor(): void{
     this.newAuthor.firstName = this.authorsForm.value.author.split(' ')[0];
     this.newAuthor.lastName = this.authorsForm.value.author.split(' ')[1];
-    this.itemListService.courseItem.authors.push(this.newAuthor);
+    this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
+    // delete this.authorsForm.value.author from this.authorsService.allAuthorsList(so they'll not repeat)
+    this.authorsForm.reset('author');
+    // (this.authorsForm.get('author') as FormArray).push()
+
     console.log(this.newAuthor);
   }
   clearInput(){
     this.authorsForm.reset('author');
   }
-  removeTag(){
-
+  removeTag(author: Author):void{
+    console.log(author);
+    const index:number =this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
+    if (index!==-1){
+      this.itemListService.courseItem.authors.splice(index, 1);
+    }
+    // delete author from this.itemListService.courseItem.authors(so view of tags will change)
   }
   ngOnInit(): void {
   }
