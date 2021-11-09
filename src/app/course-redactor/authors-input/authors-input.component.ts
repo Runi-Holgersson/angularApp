@@ -4,7 +4,7 @@ import {Author} from "../../common/interfaces/author.interface";
 import {ItemListService} from "../../common/services/item-list.service";
 import {AuthorsService} from "./authors.service";
 import {Authors} from "../../common/interfaces/authors.interface";
-import {group} from "@angular/animations";
+
 
 @Component({
   selector: 'app-authors-input',
@@ -30,9 +30,11 @@ export class AuthorsInputComponent implements OnInit{
       author: ['', [Validators.required, Validators.minLength(1)]]
     })
   }
-  addAuthor(): void{
-    this.newAuthor.firstName = this.authorsForm.value.author.split(' ')[0];
-    this.newAuthor.lastName = this.authorsForm.value.author.split(' ')[1];
+
+  addAuthor(author: Authors): void{
+    this.newAuthor.firstName = author.name.split(' ')[0];
+    this.newAuthor.lastName = author.name.split(' ')[1];
+    this.newAuthor.id = author.id;
     this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
     console.log(this.authorsForm.value);
     // delete this.authorsForm.value.author from this.authorsService.allAuthorsList(so they'll not repeat)
@@ -56,8 +58,9 @@ export class AuthorsInputComponent implements OnInit{
     const index:number =this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
     if (index!==-1){
       this.itemListService.courseItem.authors.splice(index, 1);
+      this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
     }
-    // delete author from this.itemListService.courseItem.authors(so view of tags will change)
+    //
   }
   ngOnInit(): void {
   }
