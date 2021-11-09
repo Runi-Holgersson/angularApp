@@ -11,7 +11,7 @@ import {Authors} from "../../common/interfaces/authors.interface";
   templateUrl: './authors-input.component.html',
   styleUrls: ['./authors-input.component.sass']
 })
-export class AuthorsInputComponent implements OnInit{
+export class AuthorsInputComponent implements OnInit {
   public newAuthor: Author = {
     id: 0,
     firstName: '',
@@ -22,46 +22,46 @@ export class AuthorsInputComponent implements OnInit{
   @Input() public authorsForm!: FormGroup;
 
   constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
-              public fb:FormBuilder) {
+              public fb: FormBuilder) {
     this.currentAuthors = this.itemListService.courseItem.authors;
     this.allAuthorsList = this.authorsService.allAuthorsList;
     console.log(this.allAuthorsList);
     this.authorsForm = fb.group({
-      author: ['', [Validators.required, Validators.minLength(1)]]
+      author: ['']
     })
   }
 
-  addAuthor(author: Authors): void{
+  addAuthor(author: Authors): void {
     this.newAuthor.firstName = author.name.split(' ')[0];
     this.newAuthor.lastName = author.name.split(' ')[1];
     this.newAuthor.id = author.id;
     this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
+    const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
+    this.allAuthorsList.splice(index, 1);
     console.log(this.authorsForm.value);
     // delete this.authorsForm.value.author from this.authorsService.allAuthorsList(so they'll not repeat)
     this.authorsForm.reset('author');
     // (this.authorsForm.get('author') as FormArray).push()
-   // console.log(this.newAuthor);
+    // console.log(this.newAuthor);
   }
-  clearInput(){
+
+  clearInput() {
     this.authorsForm.reset('author');
   }
-  removeAuthor(id:number): void{
-    console.log(id);
-    const index:number = this.authorsService.allAuthorsList.findIndex(author => author.id===id);
-    if (index!==-1){
-      this.authorsService.allAuthorsList.splice(index, 1);
-    }
-    console.log(this.authorsService.allAuthorsList);
-  }
-  removeTag(author: Author):void{
+
+  removeTag(author: Author): void {
     console.log(author);
-    const index:number =this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
-    if (index!==-1){
+    const index: number = this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
+    if (index !== -1) {
       this.itemListService.courseItem.authors.splice(index, 1);
-      this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
+      if (!this.allAuthorsList.some(item => item.id === author.id)) {
+        this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
+      }
+      console.log(this.allAuthorsList, this.currentAuthors);
     }
-    //
+    this.authorsForm.reset('author');
   }
+
   ngOnInit(): void {
   }
 }

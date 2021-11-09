@@ -2,8 +2,9 @@
   <div class="label-wrapper">
     <mat-label>Authors</mat-label>
   </div>
+  <div class="validator" *ngIf="authorsForm.get('author')?.errors">Error: </div>
+  <pre>{{authorsForm.get('author')?.errors | json}}</pre>
   <input matInput formControlName="author" [matAutocomplete]="auto" type="text" placeholder="from inner component">
-  <button mat-raised-button type="button" class="add-button" [disabled]="authorsForm.invalid">+</button>
   <mat-autocomplete (change)="clearInput()" #auto="matAutocomplete">
     <mat-option *ngFor="let author of allAuthorsList" [value]="author.name" (click)="addAuthor(author)">
       {{author.name}}</mat-option>

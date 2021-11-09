@@ -13,7 +13,8 @@
       <mat-label>Description</mat-label>
       <input matInput type="text" formControlName="description" placeholder="{{changingCourse.description}}">
     </mat-form-field>
-    <app-authors-input [authorsForm]="authorsForm"></app-authors-input>
+    <app-authors-input [authorsForm]="authorsForm">
+    </app-authors-input>
     <div>
       <mat-checkbox [color]="palette" [checked]="!!checkboxStatus" (change)="changeCheckbox()">Is top-rated
       </mat-checkbox>
