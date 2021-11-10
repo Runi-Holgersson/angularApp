@@ -18,21 +18,9 @@ import {DATE_REG_EXP, NUMBER_REG_EXP} from "../common/constants/constants";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRedactorComponent implements DoCheck {
-  // @Input()
-  // public name: string = "";
-  // @Input()
-  // public length: number = 0;
-//  @Input()
-  // public description: string = "";
-  // @Input()
-//  public date: string = "";
   public palette: ThemePalette;
   @Input()
   public isTopRated: boolean | undefined = false;
-  // @Input()
-  // public authors: Author[] = [{id: 0, firstName: '', lastName: ''}];
-  // @Input()
-  // public id: number = 0;
   public buttonName: string = "";
   public checkboxStatus: string = "";
   public form: FormGroup;
@@ -42,11 +30,10 @@ export class CourseRedactorComponent implements DoCheck {
               public itemListService: ItemListService, private router: Router,
               public fb: FormBuilder) {
     this.authorsService.getAuthorsList().subscribe(data => this.authorsService.allAuthorsList = data);
-    // console.log(this.authorsService.allAuthorsList);
     this.palette = 'primary';
     this.form = fb.group({
       name: ["", [Validators.required,
-        Validators.maxLength(10),Validators.minLength(5)]],
+        Validators.maxLength(10), Validators.minLength(5)]],
       description: ["", [Validators.required,
         Validators.maxLength(20), Validators.minLength(5)]],
       date: this.fb.group({
@@ -70,9 +57,7 @@ export class CourseRedactorComponent implements DoCheck {
       authors: [{id: 0, firstName: '', lastName: ''}],
     }
     if (!this.itemListService.isAddNewCourseOn) {
-      // console.log(this.itemListService.courseItem);
       Object.assign(this.changingCourse, this.itemListService.courseItem);
-      // console.log(this.changingCourse);
       this.buttonName = "Update courses list";
       this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
     } else {
@@ -80,10 +65,11 @@ export class CourseRedactorComponent implements DoCheck {
     }
   }
 
-  get authorsForm(){
+  get authorsForm() {
     return this.form.get('authors') as FormGroup;
   }
-  get dateForm(){
+
+  get dateForm() {
     return this.form.get('date') as FormGroup;
   }
 
@@ -100,27 +86,19 @@ export class CourseRedactorComponent implements DoCheck {
       name: this.form.value.name ? this.form.value.name : this.changingCourse.name,
       length: this.form.value.length ? this.form.value.length : this.changingCourse.length,
       description: this.form.value.description ? this.form.value.description : this.changingCourse.description,
-      date: this.form.value.date ? this.form.value.date : this.changingCourse.date,
+      date: this.form.value.date.date ? this.form.value.date.date : this.changingCourse.date,
       authors: this.itemListService.courseItem.authors
     });
-    console.log(this.form.value);
-    console.log(this.changingCourse);
     if (!this.itemListService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.changingCourse);
-
       this.router.navigate(['home/courses']);
     } else {
       this.changingCourse.id = this.itemListService.getUniqueId();
       this.itemListService.createCourse(this.changingCourse);
-
       this.itemListService.isAddNewCourseOn = false;
       this.router.navigate(['home/courses']);
       this.itemListService.pagesArray = [];
     }
-  }
-
-  submit() {
-    console.log("Form submitted", this.form);
   }
 
   ngDoCheck() {
