@@ -3,7 +3,6 @@ import {AbstractControl, FormControl, ValidationErrors, ValidatorFn} from "@angu
 
 export function MinAuthorsAmountValidator(authorsList: Author[], requiredAmount: number): ValidatorFn {
   return (control: AbstractControl) :  ValidationErrors | null => {
-    console.log(authorsList.length, requiredAmount);
  return (authorsList.length<requiredAmount) ? {lessThenRequired: true} : null
   }
 }

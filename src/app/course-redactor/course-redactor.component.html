@@ -3,15 +3,41 @@
     <mat-form-field>
       <mat-label>Course title</mat-label>
       <input matInput type="text" placeholder="{{changingCourse.name}}" formControlName="name">
+      <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+        <small class="mat-error" *ngIf="form.get('name')?.errors?.required">
+          This field should not be empty</small>
+        <small class="mat-error" *ngIf="form.get('name')?.errors?.minlength">
+          Title should contain at least
+          {{form.get('name')?.errors?.minlength.requiredLength}} symbols</small>
+        <small class="mat-error" *ngIf="form.get('name')?.errors?.maxlength">
+          Length of title should be less then
+          {{form.get('name')?.errors?.maxlength.requiredLength}} symbols</small>
+      </div>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Course duration(in minutes)</mat-label>
       <input matInput type="text" formControlName="length" placeholder="{{changingCourse.length}}">
+      <div *ngIf="form.get('length')?.invalid && form.get('length')?.touched">
+        <small class="mat-error" *ngIf="form.get('length')?.errors?.required">
+          This field should not be empty</small>
+        <small class="mat-error" *ngIf="form.get('length')?.errors?.pattern">
+          Only numbers allowed</small>
+      </div>
     </mat-form-field>
-    <app-date-input [parentForm]="form"></app-date-input>
+    <app-date-input [dateForm]="dateForm"></app-date-input>
     <mat-form-field>
       <mat-label>Description</mat-label>
       <input matInput type="text" formControlName="description" placeholder="{{changingCourse.description}}">
+      <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+        <small class="mat-error" *ngIf="form.get('description')?.errors?.required">
+          This field should not be empty</small>
+        <small class="mat-error" *ngIf="form.get('description')?.errors?.minlength">
+          Description should contain at least
+          {{form.get('description')?.errors?.minlength.requiredLength}} symbols</small>
+        <small class="mat-error" *ngIf="form.get('description')?.errors?.maxlength">
+          Length of description should be less then
+          {{form.get('description')?.errors?.maxlength.requiredLength}} symbols</small>
+      </div>
     </mat-form-field>
     <app-authors-input [authorsForm]="authorsForm">
     </app-authors-input>

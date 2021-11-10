@@ -9,6 +9,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 import {ThemePalette} from "@angular/material/core";
 import {AuthorsService} from "./authors-input/authors.service";
 import {MinAuthorsAmountValidator} from "./minAuthorsAmount.validator";
+import {DATE_REG_EXP, NUMBER_REG_EXP} from "../common/constants/constants";
 
 @Component({
   selector: 'app-course-redactor',
@@ -45,12 +46,14 @@ export class CourseRedactorComponent implements DoCheck {
     this.palette = 'primary';
     this.form = fb.group({
       name: ["", [Validators.required,
-        Validators.maxLength(50)]],
+        Validators.maxLength(10),Validators.minLength(5)]],
       description: ["", [Validators.required,
-        Validators.maxLength(500)]],
-      date: [''],
+        Validators.maxLength(20), Validators.minLength(5)]],
+      date: this.fb.group({
+        date: ['', [Validators.required, Validators.pattern(DATE_REG_EXP)]]
+      }),
       length: [null, [Validators.required,
-        Validators.pattern("^[0-9]+$")]],
+        Validators.pattern(NUMBER_REG_EXP)]],
       authors: this.fb.group({
         author: ['', [
           MinAuthorsAmountValidator(this.itemListService.courseItem.authors, 1)]]
@@ -79,6 +82,9 @@ export class CourseRedactorComponent implements DoCheck {
 
   get authorsForm(){
     return this.form.get('authors') as FormGroup;
+  }
+  get dateForm(){
+    return this.form.get('date') as FormGroup;
   }
 
   changeCheckbox(): void {

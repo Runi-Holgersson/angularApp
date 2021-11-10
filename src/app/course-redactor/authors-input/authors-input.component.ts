@@ -52,13 +52,11 @@ export class AuthorsInputComponent implements OnInit {
       if (!this.allAuthorsList.some(item => item.id === author.id)) {
         this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
       }
-      console.log(this.allAuthorsList, this.currentAuthors);
     }
     this.authorsForm.reset('author');
   }
 
   ngOnInit() {
-    // this.allAuthorsListFiltered = of(this.allAuthorsList);
     this.allAuthorsListFiltered = this.authorsForm.controls.author.valueChanges.pipe(
       startWith(''),
       map(value => {

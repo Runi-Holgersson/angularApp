@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-date-input',
@@ -7,8 +7,13 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./date-input.component.sass']
 })
 export class DateInputComponent implements OnInit {
-  @Input()  public parentForm!: FormGroup;
-  constructor() { }
+  @Input() public dateForm!: FormGroup;
+
+  constructor(public fb: FormBuilder) {
+    this.dateForm = fb.group({
+      date: ['']
+    })
+  }
 
   ngOnInit(): void {
 
