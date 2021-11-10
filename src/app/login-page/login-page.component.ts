@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {LoadingService} from "../loading-overlay/loading.service";
 import {User} from "../common/interfaces/user.interface";
 import {Token} from "../common/interfaces/token.interface";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login-page',
@@ -20,8 +20,10 @@ export class LoginPageComponent {
   constructor(public authorizationService: AuthorizationService, private router: Router,
               private http: HttpClient) {
     this.form = new FormGroup({
-      login: new FormControl(''),
-      password: new FormControl('')
+      login: new FormControl('', [Validators.required,
+        Validators.minLength(5)]),
+      password: new FormControl('', [Validators.required,
+        Validators.minLength(2)])
     })
   }
 
