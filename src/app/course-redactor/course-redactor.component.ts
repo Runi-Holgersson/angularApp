@@ -5,6 +5,11 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ITEMS_IN_PAGE} from "../common/constants/constants";
 import {Author} from "../common/interfaces/author.interface";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ThemePalette} from "@angular/material/core";
+import {AuthorsService} from "./authors-input/authors.service";
+import {MinAuthorsAmountValidator} from "./minAuthorsAmount.validator";
+import {DATE_REG_EXP, NUMBER_REG_EXP} from "../common/constants/constants";
 
 @Component({
   selector: 'app-course-redactor',
@@ -13,33 +18,44 @@ import {Author} from "../common/interfaces/author.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRedactorComponent implements DoCheck {
-  @Input()
-  public name: string = "";
-  @Input()
-  public length: number = 0;
-  @Input()
-  public description: string = "";
-  @Input()
-  public date: string = "";
+  public palette: ThemePalette;
   @Input()
   public isTopRated: boolean | undefined = false;
-  @Input()
-  public authors: Author[] = [{id: 0, firstName: '', lastName: ''}];
-  @Input()
-  public id: number = 0;
   public buttonName: string = "";
   public checkboxStatus: string = "";
-  changingCourse: CourseContent = {
-    name: this.name,
-    description: this.description,
-    date: this.date,
-    isTopRated: this.isTopRated,
-    length: this.length,
-    id: this.id,
-    authors: [{id: 0, firstName: '', lastName: ''}],
-  }
+  public form: FormGroup;
+  changingCourse: CourseContent;
 
-  constructor(private http: HttpClient, public itemListService: ItemListService, private router: Router) {
+  constructor(private http: HttpClient, public authorsService: AuthorsService,
+              public itemListService: ItemListService, private router: Router,
+              public fb: FormBuilder) {
+    this.authorsService.getAuthorsList().subscribe(data => this.authorsService.allAuthorsList = data);
+    this.palette = 'primary';
+    this.form = fb.group({
+      name: ["", [Validators.required,
+        Validators.maxLength(10), Validators.minLength(5)]],
+      description: ["", [Validators.required,
+        Validators.maxLength(20), Validators.minLength(5)]],
+      date: this.fb.group({
+        date: ['', [Validators.required, Validators.pattern(DATE_REG_EXP)]]
+      }),
+      length: [null, [Validators.required,
+        Validators.pattern(NUMBER_REG_EXP)]],
+      authors: this.fb.group({
+        author: ['', [
+          MinAuthorsAmountValidator(this.itemListService.courseItem.authors, 1)]]
+      })
+    });
+
+    this.changingCourse = {
+      name: this.form.value.name,
+      description: this.form.value.description,
+      date: this.form.value.date,
+      isTopRated: this.isTopRated,
+      length: this.form.value.length,
+      id: 0,
+      authors: [{id: 0, firstName: '', lastName: ''}],
+    }
     if (!this.itemListService.isAddNewCourseOn) {
       Object.assign(this.changingCourse, this.itemListService.courseItem);
       this.buttonName = "Update courses list";
@@ -47,6 +63,14 @@ export class CourseRedactorComponent implements DoCheck {
     } else {
       this.buttonName = "Add new course";
     }
+  }
+
+  get authorsForm() {
+    return this.form.get('authors') as FormGroup;
+  }
+
+  get dateForm() {
+    return this.form.get('date') as FormGroup;
   }
 
   changeCheckbox(): void {
@@ -59,19 +83,18 @@ export class CourseRedactorComponent implements DoCheck {
 
   saved() {
     Object.assign(this.changingCourse, {
-      name: this.name ? this.name : this.changingCourse.name,
-      length: this.length ? this.length : this.changingCourse.length,
-      description: this.description ? this.description : this.changingCourse.description,
-      date: this.date ? this.date : this.changingCourse.date,
+      name: this.form.value.name ? this.form.value.name : this.changingCourse.name,
+      length: this.form.value.length ? this.form.value.length : this.changingCourse.length,
+      description: this.form.value.description ? this.form.value.description : this.changingCourse.description,
+      date: this.form.value.date.date ? this.form.value.date.date : this.changingCourse.date,
+      authors: this.itemListService.courseItem.authors
     });
     if (!this.itemListService.isAddNewCourseOn) {
       this.itemListService.updateCourse(this.changingCourse);
-
       this.router.navigate(['home/courses']);
     } else {
       this.changingCourse.id = this.itemListService.getUniqueId();
       this.itemListService.createCourse(this.changingCourse);
-
       this.itemListService.isAddNewCourseOn = false;
       this.router.navigate(['home/courses']);
       this.itemListService.pagesArray = [];

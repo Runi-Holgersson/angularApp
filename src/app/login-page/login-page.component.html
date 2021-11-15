@@ -1,9 +1,29 @@
-  <div class="login-container" id="login">
-    <p class="mat-error" *ngIf = this.authorizationService.error >Error: {{this.authorizationService.error}}</p>
-    <div>Login *Required</div>
-    <input type="text" [(ngModel)]="user.login">
-    <div>Password *Required</div>
-    <input type="text" [(ngModel)]="user.password">
-    <button (click)="submitted()">Submit</button>
-  </div>
+<div class="login-container" id="login">
+  <p class="mat-error" *ngIf=this.authorizationService.error>Error: {{this.authorizationService.error}}</p>
+  <form action="" [formGroup]="form" (ngSubmit)="submitted()">
+    <mat-form-field>
+      <mat-label>Login</mat-label>
+      <input matInput type="text" formControlName="login">
+      <div *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
+        <small class="mat-error" *ngIf="form.get('login')?.errors?.required">
+          This field should not be empty</small>
+        <small class="mat-error" *ngIf="form.get('login')?.errors?.minlength">
+          Login should contain at least
+          {{form.get('login')?.errors?.minlength.requiredLength}} symbols</small>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+      <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        <small class="mat-error" *ngIf="form.get('password')?.errors?.required">
+          This field should not be empty</small>
+        <small class="mat-error" *ngIf="form.get('password')?.errors?.minlength">
+          Password should contain at least
+          {{form.get('password')?.errors?.minlength.requiredLength}} symbols</small>
+      </div>
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+</div>
 

@@ -1,0 +1,10 @@
+<mat-form-field [formGroup]="dateForm">
+  <mat-label>Date of creation</mat-label>
+  <div class="mat-error" *ngIf="dateForm.get('date')?.touched && dateForm.get('date')?.invalid">
+    <small class="mat-error" *ngIf="dateForm.get('date')?.errors?.required">
+      This field should not be empty</small>
+    <small class="mat-error" *ngIf="dateForm.get('date')?.errors?.pattern">Only format DD/MM/YYYY allowed</small>
+  </div>
+  <input matInput type="text" formControlName="date" placeholder="inner component">
+</mat-form-field>
+
