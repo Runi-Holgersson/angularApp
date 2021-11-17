@@ -50,9 +50,9 @@ export class AuthorsInputComponent implements OnInit {
     this.newAuthor.id = author.id;
     this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
     // REMOVE_AUTHOR reducer- move logics
-    this.store.dispatch(new AuthorsAction.AddAuthor(author));
-    const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
-    this.allAuthorsList.splice(index, 1);
+    this.store.dispatch(new AuthorsAction.RemoveAuthor(author));
+    // const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
+    // this.allAuthorsList.splice(index, 1);
     this.authorsForm.reset('author');
   }
 
@@ -61,7 +61,7 @@ export class AuthorsInputComponent implements OnInit {
     if (index !== -1) {
       this.itemListService.courseItem.authors.splice(index, 1);
       // ADD_AUTHOR reducer
-      this.store.dispatch(new AuthorsAction.RemoveAuthor({id: author.id, name: `${author.firstName} ${author.lastName}`}))
+      this.store.dispatch(new AuthorsAction.AddAuthor({id: author.id, name: `${author.firstName} ${author.lastName}`}))
       /*if (!this.allAuthorsList.some(item => item.id === author.id)) {
         this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
       }*/

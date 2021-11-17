@@ -110,7 +110,10 @@ export class CourseRedactorComponent implements DoCheck, OnInit {
   }
 
   ngOnInit() {
-    this.store.pipe(select('authors')).subscribe(data => console.log(data));
+    this.store.pipe(select('authors')).subscribe(data => {
+      // this.authorsService.allAuthorsList = data.data.slice(5, 5);
+      console.log('from course-redactor', data.data);
+    });
 
   }
 

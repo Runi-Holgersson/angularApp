@@ -20,7 +20,10 @@ export function authorsReducer(
     }
     case AuthorsActionTypes.REMOVE_AUTHOR: {
       console.log(`REMOVE_AUTHOR action has been handled`);
-      return {...state};
+      let index: number = state.data.findIndex(item => item.id === action.payload.id);
+      const data = [...state.data.slice(0, index), ...state.data.slice(++index)];
+      console.log(data);
+      return {...state, data};
     }
     case AuthorsActionTypes.SET_AUTHORS: {
       console.log(`SET_AUTHOR action has been handled`);
