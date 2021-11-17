@@ -6,6 +6,9 @@ import {AuthorsService} from "./authors.service";
 import {Authors} from "../../common/interfaces/authors.interface";
 import {Observable, of} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {Store, select} from "@ngrx/store";
+import {AppState, AuthorsState} from "../../+store";
+import * as AuthorsAction from "../../+store";
 
 
 @Component({
@@ -19,14 +22,19 @@ export class AuthorsInputComponent implements OnInit {
     firstName: '',
     lastName: '',
   };
-
+  public allAuthorsList$: Observable<AuthorsState>;
   public allAuthorsList: Authors[] = [];
   public allAuthorsListFiltered: Observable<Authors[]>;
   @Input() public currentAuthors: Author[] = [];
   @Input() public authorsForm!: FormGroup;
 
   constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
-              public fb: FormBuilder) {
+              public fb: FormBuilder, private store: Store<AppState>) {
+    this.allAuthorsList$ = this.store.pipe(select('authors'));
+    // .subscribe(state => {
+    // this.allAuthorsList = Object.assign({}, data.data)
+    // console.log(`from authors-input component constructor`, state.data)
+    // });
     this.currentAuthors = this.itemListService.courseItem.authors;
     this.allAuthorsList = this.authorsService.allAuthorsList;
     this.authorsForm = fb.group({
@@ -36,10 +44,13 @@ export class AuthorsInputComponent implements OnInit {
 
 
   addAuthor(author: Authors): void {
+    // remove newAuthor at all, literal obj is enough
     this.newAuthor.firstName = author.name.split(' ')[0];
     this.newAuthor.lastName = author.name.split(' ')[1];
     this.newAuthor.id = author.id;
     this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
+    // REMOVE_AUTHOR reducer- move logics
+    this.store.dispatch(new AuthorsAction.AddAuthor(author));
     const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
     this.allAuthorsList.splice(index, 1);
     this.authorsForm.reset('author');
@@ -49,9 +60,11 @@ export class AuthorsInputComponent implements OnInit {
     const index: number = this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
     if (index !== -1) {
       this.itemListService.courseItem.authors.splice(index, 1);
-      if (!this.allAuthorsList.some(item => item.id === author.id)) {
+      // ADD_AUTHOR reducer
+      this.store.dispatch(new AuthorsAction.RemoveAuthor({id: author.id, name: `${author.firstName} ${author.lastName}`}))
+      /*if (!this.allAuthorsList.some(item => item.id === author.id)) {
         this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
-      }
+      }*/
     }
     this.authorsForm.reset('author');
   }
@@ -65,6 +78,7 @@ export class AuthorsInputComponent implements OnInit {
     )
   }
 
+// reducer
   private _filter(value: string): Authors[] {
     if (value) {
       const filterValue = value.toLowerCase();

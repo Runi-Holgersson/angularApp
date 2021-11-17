@@ -1,7 +1,8 @@
 import {Authors} from "../../common/interfaces/authors.interface";
 import {Author} from "../../common/interfaces/author.interface";
+import {EntityState} from "@ngrx/entity";
 
-export interface AuthorsState {
+export interface AuthorsState{
   data: ReadonlyArray<Authors>;
 }
 

@@ -4,6 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AppStoreModule} from "./+store/app-store.module";
+import {StoreModule} from "@ngrx/store";
+import {authorsReducer} from "./+store";
 
 import {AppComponent} from './app.component';
 import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
@@ -40,6 +43,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DateInputComponent } from './course-redactor/date-input/date-input.component';
 import { AuthorsInputComponent } from './course-redactor/authors-input/authors-input.component';
+
+
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -88,7 +93,10 @@ const INTERCEPTOR_PROVIDER: Provider = {
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AppStoreModule,
+    StoreModule.forRoot({})
+    // StoreModule.forFeature('authors', authorsReducer)
   ],
   providers: [LoginPageService, AuthorizationService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
