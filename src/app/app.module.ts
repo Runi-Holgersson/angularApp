@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AppStoreModule} from "./+store/app-store.module";
 import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
 import {authorsReducer} from "./+store";
 
 import {AppComponent} from './app.component';
@@ -43,7 +44,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DateInputComponent } from './course-redactor/date-input/date-input.component';
 import { AuthorsInputComponent } from './course-redactor/authors-input/authors-input.component';
-
+import {AuthorsEffect} from "./+store";
 
 
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -95,6 +96,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     MatCheckboxModule,
     MatAutocompleteModule,
     AppStoreModule,
+    EffectsModule.forRoot([AuthorsEffect]),
     StoreModule.forRoot({})
     // StoreModule.forFeature('authors', authorsReducer)
   ],

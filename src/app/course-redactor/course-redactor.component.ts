@@ -29,15 +29,18 @@ export class CourseRedactorComponent implements DoCheck, OnInit {
   public checkboxStatus: string = "";
   public form: FormGroup;
   changingCourse: CourseContent;
-  // public authorsState$: Observable<AuthorsState>;
+  public authorsState$: Observable<AuthorsState>;
 
   constructor(private http: HttpClient, public authorsService: AuthorsService,
               public itemListService: ItemListService, private router: Router,
               public fb: FormBuilder, private store: Store<AppState>) {
-    this.authorsService.getAuthorsList().subscribe(data => {
+    this.authorsState$ = this.store.pipe(select('authors'));
+      this.store.dispatch(new AuthorsAction.LoadAuthors());
+      // removed service
+     /*this.authorsService.getAuthorsList().subscribe(data => {
       this.authorsService.allAuthorsList = data;
       this.store.dispatch(new AuthorsAction.SetAuthors(data));
-    });
+    });*/
     this.palette = 'primary';
     this.form = fb.group({
       name: ["", [Validators.required,

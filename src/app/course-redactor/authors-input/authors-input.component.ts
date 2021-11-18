@@ -5,7 +5,7 @@ import {ItemListService} from "../../common/services/item-list.service";
 import {AuthorsService} from "./authors.service";
 import {Authors} from "../../common/interfaces/authors.interface";
 import {Observable, of} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+import {filter, map, startWith} from "rxjs/operators";
 import {Store, select} from "@ngrx/store";
 import {AppState, AuthorsState} from "../../+store";
 import * as AuthorsAction from "../../+store";
@@ -22,15 +22,17 @@ export class AuthorsInputComponent implements OnInit {
     firstName: '',
     lastName: '',
   };
-  public allAuthorsList$: Observable<AuthorsState>;
+  // public allAuthorsList$: AuthorsState;
   public allAuthorsList: Authors[] = [];
   public allAuthorsListFiltered: Observable<Authors[]>;
   @Input() public currentAuthors: Author[] = [];
   @Input() public authorsForm!: FormGroup;
+  // list from store
+  @Input() public authors: Authors[];
 
   constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
               public fb: FormBuilder, private store: Store<AppState>) {
-    this.allAuthorsList$ = this.store.pipe(select('authors'));
+    // this.allAuthorsList$ = this.store.pipe(select('authors'));
     // .subscribe(state => {
     // this.allAuthorsList = Object.assign({}, data.data)
     // console.log(`from authors-input component constructor`, state.data)
@@ -49,7 +51,7 @@ export class AuthorsInputComponent implements OnInit {
     this.newAuthor.lastName = author.name.split(' ')[1];
     this.newAuthor.id = author.id;
     this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
-    // REMOVE_AUTHOR reducer- move logics
+    // REMOVE_AUTHOR reducer
     this.store.dispatch(new AuthorsAction.RemoveAuthor(author));
     // const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
     // this.allAuthorsList.splice(index, 1);
@@ -73,18 +75,19 @@ export class AuthorsInputComponent implements OnInit {
     this.allAuthorsListFiltered = this.authorsForm.controls.author.valueChanges.pipe(
       startWith(''),
       map(value => {
-        return this._filter(value);
+      return this._filter(value);
       }),
     )
   }
-
-// reducer
-  private _filter(value: string): Authors[] {
+  private _filter(value: string):Authors[] {
     if (value) {
       const filterValue = value.toLowerCase();
-      return this.allAuthorsList.filter(author => (author.name.toLowerCase()).includes(filterValue));
+      // .subscribe(data => {
+      //  data.data.filter(author => (author.name.toLowerCase()).includes(filterValue));
+      // })
+      return this.authors.filter(author => (author.name.toLowerCase()).includes(filterValue));
     } else {
-      return this.allAuthorsList;
+      return this.authors;
     }
   }
 }

@@ -1,7 +1,7 @@
 import {AuthorsState, InitialAuthorsState} from "./authors.state";
 import {AuthorsActionTypes, AuthorsAction} from "./authors.action";
 import {Authors} from "../../common/interfaces/authors.interface";
-import {AuthorsService} from "../../course-redactor/authors-input/authors.service";
+
 
 export function authorsReducer(
   state = InitialAuthorsState,
@@ -25,8 +25,19 @@ export function authorsReducer(
       console.log(data);
       return {...state, data};
     }
-    case AuthorsActionTypes.SET_AUTHORS: {
-      console.log(`SET_AUTHOR action has been handled`);
+    case AuthorsActionTypes.LOAD_AUTHORS: {
+      console.log(`LOAD_AUTHORS action has been handled`);
+      // const data: Authors[] = action.payload;
+      return {...state};
+    }
+
+    case AuthorsActionTypes.LOAD_AUTHORS_ERROR: {
+      console.log(`LOAD_AUTHORS_ERROR action has been handled with ${action.payload}`);
+      return state;
+    }
+
+    case AuthorsActionTypes.LOAD_AUTHORS_SUCCESS: {
+      console.log(`LOAD_AUTHORS_SUCCESS action has been handled`);
       const data: Authors[] = action.payload;
       return {...state, data};
     }
