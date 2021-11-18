@@ -23,12 +23,12 @@ export class AuthorsInputComponent implements OnInit {
     lastName: '',
   };
   // public allAuthorsList$: AuthorsState;
-  public allAuthorsList: Authors[] = [];
+  // public allAuthorsList: Authors[] = [];
   public allAuthorsListFiltered: Observable<Authors[]>;
   @Input() public currentAuthors: Author[] = [];
   @Input() public authorsForm!: FormGroup;
   // list from store
-  @Input() public authors: Authors[];
+  @Input() public authors: Authors[] | undefined;
 
   constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
               public fb: FormBuilder, private store: Store<AppState>) {
@@ -38,7 +38,6 @@ export class AuthorsInputComponent implements OnInit {
     // console.log(`from authors-input component constructor`, state.data)
     // });
     this.currentAuthors = this.itemListService.courseItem.authors;
-    this.allAuthorsList = this.authorsService.allAuthorsList;
     this.authorsForm = fb.group({
       author: ['']
     })
@@ -72,12 +71,14 @@ export class AuthorsInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allAuthorsListFiltered = this.authorsForm.controls.author.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-      return this._filter(value);
-      }),
-    )
+    if (this.authors) {
+      this.allAuthorsListFiltered = this.authorsForm.controls.author.valueChanges.pipe(
+        startWith(''),
+        map(value => {
+          return this._filter(value);
+        }),
+      )
+    }
   }
   private _filter(value: string):Authors[] {
     if (value) {

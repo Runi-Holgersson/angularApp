@@ -33,7 +33,7 @@ export function authorsReducer(
 
     case AuthorsActionTypes.LOAD_AUTHORS_ERROR: {
       console.log(`LOAD_AUTHORS_ERROR action has been handled with ${action.payload}`);
-      return state;
+      return {...state};
     }
 
     case AuthorsActionTypes.LOAD_AUTHORS_SUCCESS: {

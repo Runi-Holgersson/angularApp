@@ -21,7 +21,7 @@ export class AuthorsEffect {
     ))
   ))
 
-  constructor(private actions$: Actions, private http: HttpClient, private service: AuthorsService) {
+  constructor(private actions$: Actions, private http: HttpClient) {
   }
 
 }

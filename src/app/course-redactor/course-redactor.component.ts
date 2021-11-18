@@ -34,8 +34,8 @@ export class CourseRedactorComponent implements DoCheck, OnInit {
   constructor(private http: HttpClient, public authorsService: AuthorsService,
               public itemListService: ItemListService, private router: Router,
               public fb: FormBuilder, private store: Store<AppState>) {
+    this.store.dispatch(new AuthorsAction.LoadAuthors());
     this.authorsState$ = this.store.pipe(select('authors'));
-      this.store.dispatch(new AuthorsAction.LoadAuthors());
       // removed service
      /*this.authorsService.getAuthorsList().subscribe(data => {
       this.authorsService.allAuthorsList = data;
