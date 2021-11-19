@@ -1,15 +1,17 @@
-import {ChangeDetectionStrategy, Component, DoCheck, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, Input, OnDestroy, OnInit} from '@angular/core';
 import {ItemListService} from "../common/services/item-list.service";
 import {CourseContent} from "../common/interfaces/course-content.interface";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ITEMS_IN_PAGE} from "../common/constants/constants";
-import {Author} from "../common/interfaces/author.interface";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ThemePalette} from "@angular/material/core";
-import {AuthorsService} from "./authors-input/authors.service";
 import {MinAuthorsAmountValidator} from "./minAuthorsAmount.validator";
 import {DATE_REG_EXP, NUMBER_REG_EXP} from "../common/constants/constants";
+import {Store, select} from "@ngrx/store";
+import {AppState, AuthorsState} from "../+store";
+import {Observable, Subscription} from "rxjs";
+import * as AuthorsAction from "../+store";
+import {Authors} from "../common/interfaces/authors.interface";
 
 @Component({
   selector: 'app-course-redactor',
@@ -17,7 +19,7 @@ import {DATE_REG_EXP, NUMBER_REG_EXP} from "../common/constants/constants";
   styleUrls: ['./course-redactor.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseRedactorComponent implements DoCheck {
+export class CourseRedactorComponent implements DoCheck, OnInit, OnDestroy {
   public palette: ThemePalette;
   @Input()
   public isTopRated: boolean | undefined = false;
@@ -25,11 +27,14 @@ export class CourseRedactorComponent implements DoCheck {
   public checkboxStatus: string = "";
   public form: FormGroup;
   changingCourse: CourseContent;
+  public clonedAuthorsList: Authors[];
+  public authorsState$: Observable<AuthorsState>;
+  public subscription: Subscription;
 
-  constructor(private http: HttpClient, public authorsService: AuthorsService,
-              public itemListService: ItemListService, private router: Router,
-              public fb: FormBuilder) {
-    this.authorsService.getAuthorsList().subscribe(data => this.authorsService.allAuthorsList = data);
+  constructor(private http: HttpClient, public itemListService: ItemListService, private router: Router,
+              public fb: FormBuilder, private store: Store<AppState>) {
+    this.store.dispatch(new AuthorsAction.LoadAuthors());
+    this.authorsState$ = this.store.pipe(select('authors'));
     this.palette = 'primary';
     this.form = fb.group({
       name: ["", [Validators.required,
@@ -101,7 +106,15 @@ export class CourseRedactorComponent implements DoCheck {
     }
   }
 
+  ngOnInit() {
+    this.subscription = this.authorsState$.subscribe(authors => this.clonedAuthorsList = [...authors.data]);
+  }
+
   ngDoCheck() {
     this.changingCourse.isTopRated ? this.checkboxStatus = "checked" : this.checkboxStatus = "";
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

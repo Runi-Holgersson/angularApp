@@ -45,12 +45,6 @@ export class ItemListService {
     return this.pagesArray;
   };
 
-  getAmountOfCourses(): number {
-    this.http.get<CourseContent[]>(this.coursesListUrl)
-      .subscribe(data => this.amountOfCourses = data.length);
-    return this.amountOfCourses;
-  }
-
   getDatabaseList(start: number, count: number): CourseContent[] {
     setTimeout(() => this.loadingService.loading = true, 0);
     this.http.get<CourseContent[]>(this.coursesListUrl, {

@@ -1,11 +1,14 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {Author} from "../../common/interfaces/author.interface";
 import {ItemListService} from "../../common/services/item-list.service";
 import {AuthorsService} from "./authors.service";
 import {Authors} from "../../common/interfaces/authors.interface";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../+store";
+import * as AuthorsAction from "../../+store";
 
 
 @Component({
@@ -14,21 +17,14 @@ import {map, startWith} from "rxjs/operators";
   styleUrls: ['./authors-input.component.sass']
 })
 export class AuthorsInputComponent implements OnInit {
-  public newAuthor: Author = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-  };
-
-  public allAuthorsList: Authors[] = [];
   public allAuthorsListFiltered: Observable<Authors[]>;
   @Input() public currentAuthors: Author[] = [];
   @Input() public authorsForm!: FormGroup;
+  @Input() public authors: Authors[];
 
   constructor(public itemListService: ItemListService, public authorsService: AuthorsService,
-              public fb: FormBuilder) {
+              public fb: FormBuilder, private store: Store<AppState>) {
     this.currentAuthors = this.itemListService.courseItem.authors;
-    this.allAuthorsList = this.authorsService.allAuthorsList;
     this.authorsForm = fb.group({
       author: ['']
     })
@@ -36,12 +32,12 @@ export class AuthorsInputComponent implements OnInit {
 
 
   addAuthor(author: Authors): void {
-    this.newAuthor.firstName = author.name.split(' ')[0];
-    this.newAuthor.lastName = author.name.split(' ')[1];
-    this.newAuthor.id = author.id;
-    this.itemListService.courseItem.authors.push(Object.assign({}, this.newAuthor));
-    const index: number = this.allAuthorsList.findIndex(item => item.id === author.id);
-    this.allAuthorsList.splice(index, 1);
+    this.itemListService.courseItem.authors.push({
+      firstName: author.name.split(' ')[0],
+      lastName: author.name.split(' ')[1],
+      id: author.id
+    });
+    this.store.dispatch(new AuthorsAction.RemoveAuthor(author));
     this.authorsForm.reset('author');
   }
 
@@ -49,9 +45,7 @@ export class AuthorsInputComponent implements OnInit {
     const index: number = this.itemListService.courseItem.authors.findIndex(item => item.id === author.id);
     if (index !== -1) {
       this.itemListService.courseItem.authors.splice(index, 1);
-      if (!this.allAuthorsList.some(item => item.id === author.id)) {
-        this.allAuthorsList.push({id: author.id, name: `${author.firstName} ${author.lastName}`});
-      }
+      this.store.dispatch(new AuthorsAction.AddAuthor({id: author.id, name: `${author.firstName} ${author.lastName}`}))
     }
     this.authorsForm.reset('author');
   }
@@ -68,9 +62,9 @@ export class AuthorsInputComponent implements OnInit {
   private _filter(value: string): Authors[] {
     if (value) {
       const filterValue = value.toLowerCase();
-      return this.allAuthorsList.filter(author => (author.name.toLowerCase()).includes(filterValue));
+      return this.authors.filter(author => (author.name.toLowerCase()).includes(filterValue));
     } else {
-      return this.allAuthorsList;
+      return this.authors;
     }
   }
 }
