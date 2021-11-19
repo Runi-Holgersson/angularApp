@@ -39,7 +39,7 @@
           {{form.get('description')?.errors?.maxlength.requiredLength}} symbols</small>
       </div>
     </mat-form-field>
-    <app-authors-input [authors] = "(authorsState$ | async)?.data" [authorsForm]="authorsForm">
+    <app-authors-input [authors] = "clonedAuthorsList" [authorsForm]="authorsForm">
     </app-authors-input>
     <div>
       <mat-checkbox [color]="palette" [checked]="!!checkboxStatus" (change)="changeCheckbox()">Is top-rated
